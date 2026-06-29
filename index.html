@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -8,261 +8,246 @@
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
 body{background:#1a0a2e;color:#fff;min-height:100vh;overflow-x:hidden}
 
-/* ========== PANTALLA INICIO ========== */
+/* INTRO */
 #screen-intro{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;text-align:center;background:radial-gradient(ellipse at top,#2d1b69 0%,#1a0a2e 70%)}
 .intro-stars{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;z-index:0}
 .star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s infinite alternate}
 @keyframes twinkle{from{opacity:0.2}to{opacity:1}}
-.intro-content{position:relative;z-index:1;max-width:500px}
-.intro-pet{font-size:100px;display:block;animation:float 3s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-.intro-title{font-size:clamp(28px,6vw,48px);font-weight:800;color:#f9c74f;text-shadow:0 0 30px rgba(249,199,79,0.5);margin:10px 0 4px}
-.intro-sub{font-size:clamp(13px,3vw,17px);color:#c77dff;margin-bottom:6px}
-.intro-credits{font-size:clamp(11px,2.5vw,14px);color:#aaa;margin-bottom:24px;font-style:italic;line-height:1.5;background:rgba(255,255,255,0.06);padding:10px 20px;border-radius:12px;border:1px solid rgba(199,125,255,0.3)}
-.intro-form{display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px;margin:0 auto 20px}
-.intro-form input{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:12px 16px;color:#fff;font-size:16px;text-align:center;outline:none}
-.intro-form input:focus{border-color:#f9c74f;background:rgba(249,199,79,0.1)}
-.intro-form input::placeholder{color:#888}
-.btn-play{background:linear-gradient(135deg,#f9c74f,#f4a261);border:none;color:#1a0a2e;padding:14px 40px;border-radius:14px;font-size:18px;font-weight:800;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;width:100%}
-.btn-play:hover{transform:scale(1.04);box-shadow:0 0 20px rgba(249,199,79,0.5)}
-.ranking-box{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px;width:100%;max-width:380px;margin:0 auto}
-.ranking-box h3{font-size:15px;color:#f9c74f;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.rank-empty{font-size:13px;color:#aaa;text-align:center;padding:10px}
-.rank-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.07);font-size:13px}
+.intro-content{position:relative;z-index:1;max-width:480px;width:100%}
+.intro-pet{font-size:90px;display:block;animation:float 3s ease-in-out infinite;line-height:1.1}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.intro-title{font-size:clamp(26px,6vw,44px);font-weight:800;color:#f9c74f;margin:8px 0 2px}
+.intro-sub{font-size:clamp(12px,3vw,16px);color:#c77dff;margin-bottom:6px}
+.intro-credits{font-size:clamp(11px,2.5vw,13px);color:#aaa;margin-bottom:20px;font-style:italic;background:rgba(255,255,255,0.06);padding:10px 18px;border-radius:12px;border:1px solid rgba(199,125,255,0.25);line-height:1.6}
+.intro-form{display:flex;flex-direction:column;gap:10px;width:100%;max-width:300px;margin:0 auto 18px}
+.intro-form input{background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);border-radius:10px;padding:11px 14px;color:#fff;font-size:15px;text-align:center;outline:none;transition:border-color 0.2s}
+.intro-form input:focus{border-color:#f9c74f}
+.intro-form input::placeholder{color:#666}
+.btn-play{background:linear-gradient(135deg,#f9c74f,#f4a261);border:none;color:#1a0a2e;padding:13px;border-radius:12px;font-size:17px;font-weight:800;cursor:pointer;transition:all 0.2s;width:100%}
+.btn-play:hover{transform:scale(1.03);box-shadow:0 0 18px rgba(249,199,79,0.4)}
+.ranking-box{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:14px;width:100%}
+.ranking-box h3{font-size:14px;color:#f9c74f;margin-bottom:8px}
+.rank-empty{font-size:12px;color:#555;text-align:center;padding:8px}
+.rank-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:12px}
 .rank-row:last-child{border:none}
-.rank-pos{width:24px;text-align:center;font-weight:700;color:#f9c74f}
+.rank-pos{width:22px;text-align:center;font-weight:700;color:#f9c74f}
 .rank-name{flex:1;font-weight:600}
-.rank-days{color:#90e0ef;font-size:12px}
-.rank-result{font-size:11px;color:#aaa}
+.rank-days{color:#90e0ef;font-size:11px}
+.rank-result{font-size:10px;color:#aaa}
 
-/* ========== JUEGO ========== */
-#screen-game{display:none;max-width:960px;margin:0 auto;padding:10px}
-.topbar{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.08);border-radius:12px;padding:10px 14px;margin-bottom:10px;flex-wrap:wrap;gap:6px}
-.topbar h1{font-size:clamp(13px,3vw,17px);color:#f9c74f;white-space:nowrap}
-.stat{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.1);border-radius:8px;padding:5px 10px;font-size:12px;white-space:nowrap}
-.stat span{font-weight:700;font-size:13px}
-.stat.coins span{color:#f9c74f}
-.stat.day span{color:#90e0ef}
-.stat.posters span{color:#c77dff}
-.stat.pats span{color:#f4a261}
+/* GAME */
+#screen-game{display:none;max-width:960px;margin:0 auto;padding:8px}
+.topbar{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.07);border-radius:12px;padding:8px 12px;margin-bottom:8px;flex-wrap:wrap;gap:5px}
+.topbar-title{font-size:clamp(12px,2.5vw,15px);color:#f9c74f;font-weight:700}
+.stat{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.09);border-radius:7px;padding:4px 8px;font-size:11px;white-space:nowrap}
+.stat b{font-size:12px}
+.stat.coins b{color:#f9c74f}
+.stat.day b{color:#90e0ef}
+.stat.posters b{color:#c77dff}
+.stat.pats b{color:#f4a261}
+.menu-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#ccc;border-radius:7px;padding:4px 9px;cursor:pointer;font-size:11px}
 
-/* layout 2 col en desktop, 1 col en mobile */
-.game-layout{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:640px){.game-layout{grid-template-columns:1fr}}
-.col{display:flex;flex-direction:column;gap:10px}
-.panel{background:rgba(255,255,255,0.07);border-radius:14px;padding:14px;border:1px solid rgba(255,255,255,0.1)}
+.game-layout{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:600px){.game-layout{grid-template-columns:1fr}}
+.col{display:flex;flex-direction:column;gap:8px}
+.panel{background:rgba(255,255,255,0.06);border-radius:13px;padding:12px;border:1px solid rgba(255,255,255,0.09)}
 
-/* mascota */
-.pet-area{text-align:center;padding:8px 0 4px}
-.pet-wrap{position:relative;display:inline-block;cursor:pointer}
-.pet-emoji{font-size:clamp(60px,12vw,80px);display:block;transition:transform 0.2s;line-height:1}
-.pet-wrap:hover .pet-emoji{transform:scale(1.08)}
-.collar{background:linear-gradient(135deg,#c77dff,#9b5de5);border-radius:20px;padding:3px 14px;font-size:12px;font-weight:700;color:#fff;display:inline-block;margin:4px 0;letter-spacing:1px;box-shadow:0 2px 8px rgba(199,125,255,0.4)}
-.pet-mood{font-size:12px;color:#aaa;margin-bottom:8px}
-.coins-pop{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:14px;font-weight:800;color:#f9c74f;pointer-events:none;animation:coinpop 1s forwards}
-@keyframes coinpop{0%{opacity:1;top:-10px}100%{opacity:0;top:-40px}}
+/* PET */
+.pet-area{text-align:center;padding:6px 0 4px;position:relative}
+.pet-wrap{position:relative;display:inline-block;cursor:pointer;user-select:none}
+.pet-emoji{font-size:clamp(56px,10vw,72px);display:block;transition:transform 0.2s;line-height:1;filter:none}
+.pet-emoji.dirty{filter:sepia(0.8) hue-rotate(30deg) saturate(0.6)}
+.pet-emoji.sad{filter:grayscale(0.5)}
+.pet-emoji.dead{filter:grayscale(1) brightness(0.5)}
+.pet-wrap:active .pet-emoji{transform:scale(1.15)}
+.collar{background:linear-gradient(135deg,#c77dff,#9b5de5);border-radius:20px;padding:3px 14px;font-size:11px;font-weight:700;color:#fff;display:inline-block;margin:3px 0;letter-spacing:1px;box-shadow:0 2px 8px rgba(155,93,229,0.5)}
+.pet-mood{font-size:11px;color:#aaa;margin-bottom:8px;min-height:16px}
+.coins-pop{position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:800;color:#f9c74f;pointer-events:none;animation:cpop 1s forwards;z-index:10}
+@keyframes cpop{0%{opacity:1;top:-8px}100%{opacity:0;top:-36px}}
+.status-icons{display:flex;justify-content:center;gap:6px;margin-bottom:6px;font-size:16px;min-height:22px}
 
-/* barras */
-.bars{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+/* BARS */
+.bars{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
 .bar-row{display:flex;align-items:center;gap:6px;font-size:11px}
-.bar-row label{width:62px;color:#ccc;flex-shrink:0;font-size:11px}
-.bar-bg{flex:1;background:rgba(255,255,255,0.1);border-radius:6px;height:11px;overflow:hidden}
-.bar-fill{height:100%;border-radius:6px;transition:width 0.4s}
+.bar-row label{width:62px;color:#ccc;flex-shrink:0;font-size:10px}
+.bar-bg{flex:1;background:rgba(255,255,255,0.09);border-radius:5px;height:10px;overflow:hidden}
+.bar-fill{height:100%;border-radius:5px;transition:width 0.5s}
 .bar-fill.hunger{background:linear-gradient(90deg,#f9c74f,#f4a261)}
 .bar-fill.hygiene{background:linear-gradient(90deg,#90e0ef,#48cae4)}
 .bar-fill.happiness{background:linear-gradient(90deg,#c77dff,#9b5de5)}
 .bar-fill.health{background:linear-gradient(90deg,#70e000,#38b000)}
-.bar-val{font-size:11px;min-width:26px;text-align:right}
+.bar-fill.low{background:linear-gradient(90deg,#ff6b6b,#ff4040)!important}
+.bar-val{font-size:10px;min-width:24px;text-align:right}
 
-/* botones de cuidado */
-.care-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.care-btn{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;padding:8px 4px;border-radius:10px;cursor:pointer;font-size:11px;font-weight:600;transition:all 0.2s;position:relative}
-.care-btn:not(:disabled):hover{background:rgba(255,255,255,0.2);transform:scale(1.03)}
-.care-btn:disabled{opacity:0.35;cursor:not-allowed;transform:none}
-.care-btn.feed{border-color:#f9c74f}
-.care-btn.bath{border-color:#90e0ef}
-.care-btn.play{border-color:#c77dff}
-.care-btn.heal{border-color:#70e000}
-.btn-uses{font-size:9px;color:#aaa;display:block;margin-top:1px}
+/* CARE BTNS */
+.care-btns{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.care-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:#fff;padding:7px 4px;border-radius:9px;cursor:pointer;font-size:10px;font-weight:600;transition:all 0.2s;text-align:center;line-height:1.3}
+.care-btn .hint{font-size:9px;color:#888;display:block;margin-top:1px}
+.care-btn:not(:disabled):hover{background:rgba(255,255,255,0.18);transform:scale(1.03)}
+.care-btn:disabled{opacity:0.3;cursor:not-allowed}
+.care-btn.feed{border-color:rgba(249,199,79,0.5)}
+.care-btn.bath{border-color:rgba(144,224,239,0.5)}
+.care-btn.play{border-color:rgba(199,125,255,0.5)}
+.care-btn.heal{border-color:rgba(112,224,0,0.5)}
 
-/* evento */
-.event-box{background:rgba(255,80,80,0.15);border:2px solid #ff6b6b;border-radius:12px;padding:12px;animation:pulse 1s infinite alternate}
-.event-box.good{background:rgba(112,224,0,0.12);border-color:#70e000;animation:none}
-.event-box h3{font-size:14px;margin-bottom:5px}
-.event-box p{font-size:12px;color:#ccc;margin-bottom:8px}
+/* EVENT */
+.event-box{border-radius:12px;padding:12px;border:2px solid}
+.event-box.bad{background:rgba(255,80,80,0.12);border-color:#ff6b6b;animation:epulse 1.2s infinite alternate}
+.event-box.good{background:rgba(112,224,0,0.1);border-color:#70e000}
+.event-box.party{background:rgba(249,199,79,0.1);border-color:#f9c74f}
+@keyframes epulse{from{box-shadow:0 0 0 0 rgba(255,107,107,0.3)}to{box-shadow:0 0 12px 3px rgba(255,107,107,0.1)}}
+.event-box h3{font-size:13px;margin-bottom:4px;font-weight:700}
+.event-box p{font-size:11px;color:#ccc;margin-bottom:8px;line-height:1.4}
 .event-opts{display:flex;flex-direction:column;gap:5px}
-.event-opt{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:8px 10px;color:#fff;cursor:pointer;font-size:12px;text-align:left;transition:all 0.2s}
-.event-opt:not(:disabled):hover{background:rgba(255,255,255,0.2)}
-.event-opt.correct{background:rgba(112,224,0,0.3);border-color:#70e000}
-.event-opt.wrong{background:rgba(255,80,80,0.3);border-color:#ff6b6b}
-.event-opt:disabled{cursor:not-allowed}
-@keyframes pulse{from{box-shadow:0 0 0 0 rgba(255,107,107,0.4)}to{box-shadow:0 0 10px 4px rgba(255,107,107,0.1)}}
+.event-opt{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:7px 10px;color:#fff;cursor:pointer;font-size:11px;text-align:left;transition:all 0.2s;position:relative}
+.event-opt:not(:disabled):hover{background:rgba(255,255,255,0.18)}
+.event-opt.correct{background:rgba(112,224,0,0.25);border-color:#70e000;pointer-events:none}
+.event-opt.wrong{background:rgba(255,80,80,0.25);border-color:#ff6b6b;pointer-events:none}
+.event-opt:disabled{cursor:default}
+.tool-badge{font-size:9px;background:rgba(249,199,79,0.2);border:1px solid rgba(249,199,79,0.4);color:#f9c74f;border-radius:4px;padding:1px 5px;margin-left:5px}
 
-/* tabs tienda */
-.tabs{display:flex;gap:4px;margin-bottom:10px}
-.tab{flex:1;padding:7px 4px;border:none;background:rgba(255,255,255,0.08);color:#ccc;border-radius:8px;cursor:pointer;font-size:11px;font-weight:600;transition:all 0.2s}
-.tab.active{background:rgba(249,199,79,0.25);color:#f9c74f;border:1px solid #f9c74f}
+/* TABS */
+.tabs{display:flex;gap:4px;margin-bottom:8px}
+.tab{flex:1;padding:6px 4px;border:none;background:rgba(255,255,255,0.07);color:#999;border-radius:7px;cursor:pointer;font-size:10px;font-weight:700;transition:all 0.2s}
+.tab.active{background:rgba(249,199,79,0.2);color:#f9c74f;border:1px solid rgba(249,199,79,0.4)}
 
-/* tienda */
-.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;max-height:280px;overflow-y:auto}
-.shop-item{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:9px 8px;text-align:center;cursor:pointer;transition:all 0.2s}
-.shop-item:hover{background:rgba(255,255,255,0.13);transform:scale(1.02)}
-.shop-item .item-emoji{font-size:28px;display:block;margin-bottom:3px}
-.shop-item .item-name{font-size:11px;font-weight:700;margin-bottom:2px}
-.shop-item .item-desc{font-size:10px;color:#aaa;margin-bottom:5px;line-height:1.3}
-.shop-item .item-price{font-size:12px;font-weight:700;color:#f9c74f}
+/* SHOP */
+.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;max-height:260px;overflow-y:auto;padding-right:2px}
+.shop-item{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:9px;padding:8px 6px;text-align:center;cursor:pointer;transition:all 0.2s;position:relative}
+.shop-item:hover{background:rgba(255,255,255,0.12);transform:scale(1.02)}
+.shop-item .ie{font-size:26px;display:block;margin-bottom:3px}
+.shop-item .in{font-size:10px;font-weight:700;margin-bottom:1px}
+.shop-item .id{font-size:9px;color:#888;margin-bottom:4px;line-height:1.3}
+.shop-item .ip{font-size:11px;font-weight:700;color:#f9c74f}
+.shop-item.tool-item{border-color:rgba(144,224,239,0.3)}
+.shop-item .uses-badge{position:absolute;top:4px;right:4px;font-size:8px;background:rgba(112,224,0,0.2);border:1px solid rgba(112,224,0,0.4);color:#70e000;border-radius:4px;padding:1px 4px}
 
-/* mochila siempre visible */
-.inventory-section{margin-top:10px;border-top:1px solid rgba(255,255,255,0.1);padding-top:10px}
-.inventory-title{font-size:12px;font-weight:700;color:#f9c74f;margin-bottom:7px;display:flex;align-items:center;gap:5px}
-.inventory{display:flex;flex-wrap:wrap;gap:5px;min-height:36px}
-.inv-item{background:rgba(255,255,255,0.1);border-radius:8px;padding:5px 9px;font-size:11px;cursor:pointer;transition:all 0.2s;border:1px solid rgba(255,255,255,0.15)}
-.inv-item:hover{background:rgba(249,199,79,0.3);border-color:#f9c74f}
-.inv-empty{font-size:11px;color:#666;align-self:center}
+/* INVENTORY */
+.inv-section{margin-top:8px;border-top:1px solid rgba(255,255,255,0.08);padding-top:8px}
+.inv-title{font-size:11px;font-weight:700;color:#f9c74f;margin-bottom:6px}
+.inv-grid{display:flex;flex-wrap:wrap;gap:4px;min-height:30px}
+.inv-item{background:rgba(255,255,255,0.08);border-radius:7px;padding:4px 8px;font-size:10px;cursor:pointer;transition:all 0.2s;border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;gap:4px}
+.inv-item:hover{background:rgba(249,199,79,0.25);border-color:#f9c74f}
+.inv-item .uses{font-size:8px;color:#70e000;margin-left:2px}
+.inv-empty{font-size:10px;color:#444;align-self:center}
 
-/* carteles */
-.poster-progress{margin-top:10px;border-top:1px solid rgba(255,255,255,0.1);padding-top:10px}
-.poster-label{font-size:12px;color:#c77dff;margin-bottom:4px;display:flex;justify-content:space-between}
-.poster-bar{background:rgba(255,255,255,0.1);border-radius:6px;height:9px;overflow:hidden}
-.poster-bar-fill{background:linear-gradient(90deg,#c77dff,#9b5de5);height:100%;border-radius:6px;transition:width 0.4s}
-.poster-hint{font-size:10px;color:#666;margin-top:3px}
+/* POSTERS */
+.poster-section{margin-top:8px;border-top:1px solid rgba(255,255,255,0.08);padding-top:8px}
+.poster-label{font-size:10px;color:#c77dff;margin-bottom:4px;display:flex;justify-content:space-between}
+.poster-bar{background:rgba(255,255,255,0.09);border-radius:5px;height:8px;overflow:hidden}
+.poster-fill{background:linear-gradient(90deg,#c77dff,#9b5de5);height:100%;border-radius:5px;transition:width 0.5s}
+.poster-hint{font-size:9px;color:#555;margin-top:3px}
 
-/* log */
-.log{background:rgba(0,0,0,0.3);border-radius:10px;padding:10px;max-height:160px;overflow-y:auto;font-size:11px;line-height:1.7}
-.log p{padding:1px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
-.log p:last-child{border:none;color:#f9c74f}
+/* LOG */
+.log{background:rgba(0,0,0,0.25);border-radius:9px;padding:8px;max-height:150px;overflow-y:auto;font-size:10px;line-height:1.8}
+.log p{padding:1px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+.log p:first-child{color:#f9c74f}
+.log p:last-child{border:none}
 
-/* next day */
-.next-day-btn{width:100%;background:linear-gradient(135deg,#9b5de5,#f15bb5);border:none;color:#fff;padding:11px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px;transition:all 0.2s}
-.next-day-btn:hover{opacity:0.9;transform:scale(1.01)}
-.next-day-btn:disabled{opacity:0.35;cursor:not-allowed;transform:none}
+/* NEXT DAY */
+.next-day-btn{width:100%;background:linear-gradient(135deg,#9b5de5,#f15bb5);border:none;color:#fff;padding:10px;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s}
+.next-day-btn:hover:not(:disabled){opacity:0.88;transform:scale(1.01)}
+.next-day-btn:disabled{opacity:0.3;cursor:not-allowed}
 
-/* modal */
-.modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.75);display:flex;align-items:center;justify-content:center;z-index:1000;padding:20px}
-.modal-box{background:#1a0a2e;border:2px solid rgba(255,255,255,0.2);border-radius:18px;padding:28px 24px;max-width:380px;width:100%;text-align:center}
-.modal-box h2{font-size:22px;margin-bottom:8px;color:#f9c74f}
-.modal-box p{color:#ccc;margin-bottom:18px;line-height:1.6;font-size:14px}
-.modal-btn{background:linear-gradient(135deg,#9b5de5,#f15bb5);border:none;color:#fff;padding:11px 26px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
+/* MODAL */
+.modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:1000;padding:16px}
+.modal-box{background:#1e0e38;border:1.5px solid rgba(255,255,255,0.15);border-radius:16px;padding:24px 20px;max-width:360px;width:100%;text-align:center}
+.modal-box h2{font-size:20px;margin-bottom:7px;color:#f9c74f}
+.modal-box p{color:#ccc;margin-bottom:16px;line-height:1.6;font-size:13px}
+.modal-btn{background:linear-gradient(135deg,#9b5de5,#f15bb5);border:none;color:#fff;padding:10px 24px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer}
 .hidden{display:none}
-.tooltip{position:absolute;bottom:110%;left:50%;transform:translateX(-50%);background:#222;border:1px solid #555;border-radius:7px;padding:5px 9px;font-size:10px;color:#fff;white-space:nowrap;z-index:10;pointer-events:none}
+
+/* ACHIEVEMENTS */
+.achievement-pop{position:fixed;top:20px;right:20px;background:linear-gradient(135deg,#f9c74f,#f4a261);color:#1a0a2e;border-radius:10px;padding:10px 16px;font-size:12px;font-weight:700;z-index:2000;animation:achievepop 3s forwards;box-shadow:0 4px 16px rgba(249,199,79,0.4)}
+@keyframes achievepop{0%{opacity:0;transform:translateX(40px)}10%{opacity:1;transform:translateX(0)}80%{opacity:1}100%{opacity:0;transform:translateX(40px)}}
+
+/* DAY SUMMARY */
+.day-summary{background:rgba(0,0,0,0.4);border-radius:10px;padding:12px;margin:8px 0;font-size:11px;line-height:1.8;border:1px solid rgba(255,255,255,0.08)}
+.day-summary .ds-title{font-size:13px;font-weight:700;color:#f9c74f;margin-bottom:6px}
 
 @media(max-width:400px){
   .care-btns{grid-template-columns:1fr 1fr}
   .shop-grid{grid-template-columns:1fr 1fr}
-  .topbar{gap:4px}
-  .stat{padding:4px 7px;font-size:11px}
+  .topbar{gap:3px}
 }
 </style>
 </head>
 <body>
 
-<!-- ========== PANTALLA INICIO ========== -->
+<!-- INTRO -->
 <div id="screen-intro">
   <div class="intro-stars" id="stars"></div>
   <div class="intro-content">
     <span class="intro-pet">🐕</span>
     <div class="intro-title">🐾 Cooper</div>
-    <div class="intro-sub">Mascota Rescatada</div>
-    <div class="intro-credits">
-      ✨ Este juego fue creado por<br>
-      <strong style="color:#f9c74f">Mateo Prochor</strong> y su <strong style="color:#f9c74f">Papá</strong> 💙
-    </div>
+    <div class="intro-sub">Mascota Rescatada — Sobrevivir 100 días</div>
+    <div class="intro-credits">✨ Creado por <strong style="color:#f9c74f">Mateo Prochor</strong> y su <strong style="color:#f9c74f">Papá</strong> 💙</div>
     <div class="intro-form">
-      <input type="text" id="playerName" placeholder="Tu nombre, ¿quién eres?" maxlength="20">
+      <input type="text" id="playerName" placeholder="¿Cuál es tu nombre?" maxlength="20" autocomplete="off">
       <button class="btn-play" onclick="startGame()">▶ ¡Jugar!</button>
     </div>
     <div class="ranking-box">
       <h3>🏆 Ranking de supervivencia</h3>
-      <div id="rankingList"><div class="rank-empty">¡Sé el primero en jugar!</div></div>
+      <div id="rankingList"></div>
     </div>
   </div>
 </div>
 
-<!-- ========== PANTALLA JUEGO ========== -->
+<!-- GAME -->
 <div id="screen-game">
   <div class="topbar">
-    <h1>🐾 Cooper</h1>
-    <div class="stat day">📅 Día <span id="dayNum">1</span>/100</div>
-    <div class="stat coins">🪙 <span id="coinsNum">50</span></div>
-    <div class="stat posters">🪧 <span id="postersNum">0</span>/10</div>
-    <div class="stat pats">🤚 Caricias: <span id="patsNum">3</span>/3</div>
-    <button onclick="goToMenu()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#ccc;border-radius:8px;padding:5px 10px;cursor:pointer;font-size:11px">🏠 Menú</button>
+    <span class="topbar-title">🐾 Cooper</span>
+    <div class="stat day">📅 Día <b id="dayNum">1</b>/100</div>
+    <div class="stat coins">🪙 <b id="coinsNum">50</b></div>
+    <div class="stat posters">🪧 <b id="postersNum">0</b>/10</div>
+    <div class="stat pats">🤚 <b id="patsNum">3</b>/3</div>
+    <button class="menu-btn" onclick="goToMenu()">🏠 Menú</button>
   </div>
 
   <div class="game-layout">
-    <!-- COL IZQUIERDA: mascota + evento + siguiente día -->
     <div class="col">
       <div class="panel">
         <div class="pet-area">
           <div class="pet-wrap" onclick="petPat()" id="petWrap">
             <span class="pet-emoji" id="petEmoji">🐕</span>
           </div>
-          <div class="collar" id="collarName">Cooper</div>
+          <div class="collar">Cooper</div>
+          <div class="status-icons" id="statusIcons"></div>
           <div class="pet-mood" id="petMood">¡Feliz de estar contigo!</div>
         </div>
         <div class="bars">
-          <div class="bar-row"><label>🍖 Comida</label><div class="bar-bg"><div class="bar-fill hunger" id="barHunger" style="width:70%"></div></div><span class="bar-val" style="color:#f9c74f" id="lblHunger">70</span></div>
-          <div class="bar-row"><label>🛁 Higiene</label><div class="bar-bg"><div class="bar-fill hygiene" id="barHygiene" style="width:80%"></div></div><span class="bar-val" style="color:#90e0ef" id="lblHygiene">80</span></div>
-          <div class="bar-row"><label>😊 Felicidad</label><div class="bar-bg"><div class="bar-fill happiness" id="barHappiness" style="width:75%"></div></div><span class="bar-val" style="color:#c77dff" id="lblHappiness">75</span></div>
-          <div class="bar-row"><label>❤️ Salud</label><div class="bar-bg"><div class="bar-fill health" id="barHealth" style="width:90%"></div></div><span class="bar-val" style="color:#70e000" id="lblHealth">90</span></div>
+          <div class="bar-row"><label>🍖 Comida</label><div class="bar-bg"><div class="bar-fill hunger" id="barHunger" style="width:70%"></div></div><b class="bar-val" style="color:#f9c74f" id="lblHunger">70</b></div>
+          <div class="bar-row"><label>🛁 Higiene</label><div class="bar-bg"><div class="bar-fill hygiene" id="barHygiene" style="width:80%"></div></div><b class="bar-val" style="color:#90e0ef" id="lblHygiene">80</b></div>
+          <div class="bar-row"><label>😊 Felicidad</label><div class="bar-bg"><div class="bar-fill happiness" id="barHappiness" style="width:75%"></div></div><b class="bar-val" style="color:#c77dff" id="lblHappiness">75</b></div>
+          <div class="bar-row"><label>❤️ Salud</label><div class="bar-bg"><div class="bar-fill health" id="barHealth" style="width:90%"></div></div><b class="bar-val" style="color:#70e000" id="lblHealth">90</b></div>
         </div>
         <div class="care-btns">
-          <button class="care-btn feed" id="btnFeed" onclick="useCareBtn('feed')" disabled>
-            🍖 Dar comida<span class="btn-uses" id="hintFeed">Necesitás comida</span>
-          </button>
-          <button class="care-btn bath" id="btnBath" onclick="useCareBtn('bath')" disabled>
-            🛁 Bañar<span class="btn-uses" id="hintBath">Necesitás champú/kit</span>
-          </button>
-          <button class="care-btn play" id="btnPlay" onclick="useCareBtn('play')">
-            😊 Felicidad<span class="btn-uses" id="hintPlay">3 veces/día gratis</span>
-          </button>
-          <button class="care-btn heal" id="btnHeal" onclick="useCareBtn('heal')" disabled>
-            💊 Curar<span class="btn-uses" id="hintHeal">Necesitás medicina</span>
-          </button>
+          <button class="care-btn feed" id="btnFeed" onclick="useBtn('feed')" disabled>🍖 Dar comida<span class="hint" id="hFeed">Comprá comida</span></button>
+          <button class="care-btn bath" id="btnBath" onclick="useBtn('bath')" disabled>🛁 Bañar<span class="hint" id="hBath">Comprá champú</span></button>
+          <button class="care-btn play" id="btnPlay" onclick="useBtn('play')">😊 Jugar<span class="hint" id="hPlay">3 veces/día</span></button>
+          <button class="care-btn heal" id="btnHeal" onclick="useBtn('heal')" disabled>💊 Curar<span class="hint" id="hHeal">Comprá medicina</span></button>
         </div>
       </div>
-
-      <!-- evento -->
-      <div class="panel" id="eventPanel" style="display:none"></div>
-
-      <button class="next-day-btn" id="nextDayBtn" onclick="nextDay()">🌙 Siguiente Día</button>
-
-      <!-- log en mobile va abajo de la col izq -->
-      <div class="panel" style="display:none" id="logPanelMobile">
-        <div class="log" id="gameLogMobile"></div>
-      </div>
+      <div id="eventPanel" style="display:none" class="panel"></div>
+      <button class="next-day-btn" id="nextDayBtn" onclick="nextDay()">🌙 Pasar al Siguiente Día</button>
     </div>
 
-    <!-- COL DERECHA: tienda + mochila + log -->
     <div class="col">
       <div class="panel">
         <div class="tabs">
-          <button class="tab active" onclick="switchTab('shop')" id="tabBtnShop">🛒 Tienda</button>
-          <button class="tab" onclick="switchTab('log')" id="tabBtnLog">📋 Historial</button>
+          <button class="tab active" onclick="switchTab('shop')" id="tShop">🛒 Tienda</button>
+          <button class="tab" onclick="switchTab('log')" id="tLog">📋 Historial</button>
         </div>
-        <div id="tabShop">
-          <div class="shop-grid" id="shopGrid"></div>
+        <div id="tabShop"><div class="shop-grid" id="shopGrid"></div></div>
+        <div id="tabLog" class="hidden"><div class="log" id="gameLog"></div></div>
+        <div class="inv-section">
+          <div class="inv-title">🎒 Mochila <span style="color:#555;font-weight:400;font-size:9px">(tocá para usar)</span></div>
+          <div class="inv-grid" id="invGrid"></div>
         </div>
-        <div id="tabLog" class="hidden">
-          <div class="log" id="gameLog"></div>
-        </div>
-
-        <!-- MOCHILA SIEMPRE VISIBLE -->
-        <div class="inventory-section">
-          <div class="inventory-title">🎒 Mochila <span style="color:#aaa;font-weight:400;font-size:10px">(toca para usar)</span></div>
-          <div class="inventory" id="inventoryArea">
-            <span class="inv-empty">Vacía — comprá en la tienda</span>
-          </div>
-        </div>
-
-        <!-- CARTELES -->
-        <div class="poster-progress">
-          <div class="poster-label">
-            <span>🪧 Carteles colocados</span>
-            <span id="posterCount">0</span>/10
-          </div>
-          <div class="poster-bar"><div class="poster-bar-fill" id="posterBarFill" style="width:0%"></div></div>
-          <div class="poster-hint">Con 10 carteles encontrarán al dueño de Cooper</div>
+        <div class="poster-section">
+          <div class="poster-label"><span>🪧 Carteles colocados</span><span><b id="pCount">0</b>/10</span></div>
+          <div class="poster-bar"><div class="poster-fill" id="pFill" style="width:0%"></div></div>
+          <div class="poster-hint">Con 10 carteles encontrás al dueño de Cooper</div>
         </div>
       </div>
     </div>
@@ -272,449 +257,510 @@ body{background:#1a0a2e;color:#fff;min-height:100vh;overflow-x:hidden}
 <!-- MODAL -->
 <div id="modal" class="modal hidden">
   <div class="modal-box">
-    <div id="modalEmoji" style="font-size:56px;margin-bottom:8px"></div>
-    <h2 id="modalTitle"></h2>
-    <p id="modalText"></p>
-    <button class="modal-btn" id="modalBtn">Continuar</button>
+    <div id="mEmoji" style="font-size:52px;margin-bottom:8px"></div>
+    <h2 id="mTitle"></h2>
+    <p id="mText"></p>
+    <button class="modal-btn" id="mBtn">Continuar</button>
   </div>
 </div>
 
 <script>
-// ===== ESTRELLAS =====
-(function(){
-  const c=document.getElementById('stars');
-  for(let i=0;i<80;i++){
-    const s=document.createElement('div');
-    s.className='star';
-    s.style.cssText=`width:${Math.random()*3}px;height:${Math.random()*3}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s`;
-    c.appendChild(s);
-  }
-})();
+// ===== STARS =====
+(()=>{const c=document.getElementById('stars');for(let i=0;i<80;i++){const s=document.createElement('div');s.className='star';s.style.cssText=`width:${Math.random()*2.5}px;height:${Math.random()*2.5}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s`;c.appendChild(s);}})();
 
 // ===== RANKING =====
-function getRanking(){
-  try{return JSON.parse(localStorage.getItem('cooper_ranking')||'[]');}catch(e){return[];}
-}
-function saveRanking(r){localStorage.setItem('cooper_ranking',JSON.stringify(r));}
-function addRankEntry(name,days,won){
-  const r=getRanking();
-  r.push({name,days,won,date:new Date().toLocaleDateString('es-AR')});
-  r.sort((a,b)=>b.days-a.days);
-  saveRanking(r.slice(0,10));
-}
+function getRanking(){try{return JSON.parse(localStorage.getItem('cooper_v2')||'[]');}catch(e){return[];}}
+function saveRanking(r){try{localStorage.setItem('cooper_v2',JSON.stringify(r));}catch(e){}}
+function addRankEntry(name,days,won){const r=getRanking();r.push({name,days,won});r.sort((a,b)=>b.days-a.days);saveRanking(r.slice(0,10));}
 function renderRanking(){
-  const r=getRanking();
-  const el=document.getElementById('rankingList');
+  const r=getRanking();const el=document.getElementById('rankingList');
   if(!r.length){el.innerHTML='<div class="rank-empty">¡Sé el primero en jugar!</div>';return;}
-  const medals=['🥇','🥈','🥉'];
-  el.innerHTML=r.map((e,i)=>`
-    <div class="rank-row">
-      <span class="rank-pos">${medals[i]||i+1}</span>
-      <span class="rank-name">${e.name}</span>
-      <span class="rank-days">${e.days} días</span>
-      <span class="rank-result">${e.won?'🏆 Ganó':'💀 Perdió'}</span>
-    </div>`).join('');
+  const m=['🥇','🥈','🥉'];
+  el.innerHTML=r.map((e,i)=>`<div class="rank-row"><span class="rank-pos">${m[i]||i+1}</span><span class="rank-name">${e.name}</span><span class="rank-days">${e.days} días</span><span class="rank-result">${e.won?'🏆':'💀'}</span></div>`).join('');
 }
 renderRanking();
 
-// ===== ESTADO DEL JUEGO =====
+// ===== GAME STATE =====
 const G={
   playerName:'',day:1,coins:50,posters:0,
   hunger:70,hygiene:80,happiness:75,health:90,
   inventory:[],log:[],
-  activeEvent:null,eventHandled:false,
-  gameOver:false,won:false,
+  activeEvent:null,eventDone:false,eventOpts:[],
+  over:false,won:false,
   patsToday:0,MAX_PATS:3,
-  // items necesarios para cada acción
-  FOOD_TYPES:['food'],
-  HYGIENE_TYPES:['hygiene'],
-  HEAL_TYPES:['medicine','potion'],
-  PLAY_TYPES:['toy'],
+  achievements:new Set(),
+  dayEvents:[],
 };
 
-// ===== TIENDA =====
-const SHOP_ITEMS=[
-  {id:'food1',name:'Croquetas',emoji:'🍖',desc:'Comida +25',price:8,type:'food',effect:{hunger:25}},
-  {id:'food2',name:'Carne fresca',emoji:'🥩',desc:'Comida +45',price:15,type:'food',effect:{hunger:45}},
-  {id:'food3',name:'Golosinas',emoji:'🍬',desc:'Comida +15, Felicidad +10',price:10,type:'food',effect:{hunger:15,happiness:10}},
-  {id:'bath1',name:'Champú',emoji:'🧴',desc:'Higiene +35',price:10,type:'hygiene',effect:{hygiene:35}},
-  {id:'bath2',name:'Kit de baño',emoji:'🛁',desc:'Higiene +55',price:20,type:'hygiene',effect:{hygiene:55}},
-  {id:'toy1',name:'Pelota',emoji:'⚽',desc:'Felicidad +30',price:12,type:'toy',effect:{happiness:30}},
-  {id:'toy2',name:'Cuerda',emoji:'🪢',desc:'Felicidad +20',price:8,type:'toy',effect:{happiness:20}},
-  {id:'toy3',name:'Frisbee',emoji:'🥏',desc:'Felicidad +40, Salud +5',price:18,type:'toy',effect:{happiness:40,health:5}},
-  {id:'med1',name:'Vitaminas',emoji:'💊',desc:'Salud +30',price:15,type:'medicine',effect:{health:30}},
-  {id:'med2',name:'Poción mágica',emoji:'🧪',desc:'Todo +20',price:35,type:'potion',effect:{hunger:20,hygiene:20,happiness:20,health:20}},
-  {id:'med3',name:'Botiquín',emoji:'🩺',desc:'Salud +50',price:25,type:'medicine',effect:{health:50}},
-  {id:'ropa1',name:'Suéter',emoji:'🧥',desc:'Felicidad +15, Salud +10',price:20,type:'clothing',effect:{happiness:15,health:10}},
-  {id:'ropa2',name:'Collar bonito',emoji:'📿',desc:'Felicidad +20',price:16,type:'clothing',effect:{happiness:20}},
-  {id:'poster1',name:'Cartel búsqueda',emoji:'🪧',desc:'+1 cartel (necesitás 10)',price:30,type:'poster',effect:{}},
-  {id:'tool1',name:'Trampa insectos',emoji:'🪤',desc:'Resuelve invasión de bichos',price:15,type:'tool_insect',effect:{}},
-  {id:'tool2',name:'Detector inund.',emoji:'💧',desc:'Resuelve inundaciones',price:20,type:'tool_flood',effect:{}},
-  {id:'tool3',name:'Alarma antirrobo',emoji:'🔔',desc:'Resuelve robos sin perder',price:25,type:'tool_burglar',effect:{}},
-  {id:'tool4',name:'Kit anti-terremoto',emoji:'⛑️',desc:'Calma a Cooper en temblores',price:18,type:'tool_quake',effect:{}},
-  {id:'tool5',name:'Impermeable',emoji:'🧤',desc:'Protege de tormentas',price:15,type:'tool_storm',effect:{}},
+// ===== SHOP =====
+const SHOP=[
+  // COMIDA
+  {id:'f1',n:'Croquetas',e:'🍖',d:'Comida +25',p:8,t:'food',ef:{hunger:25}},
+  {id:'f2',n:'Carne fresca',e:'🥩',d:'Comida +45',p:15,t:'food',ef:{hunger:45}},
+  {id:'f3',n:'Golosinas',e:'🍬',d:'Comida +15, Felicidad +10',p:10,t:'food',ef:{hunger:15,happiness:10}},
+  // HIGIENE
+  {id:'h1',n:'Champú',e:'🧴',d:'Higiene +35',p:10,t:'hygiene',ef:{hygiene:35}},
+  {id:'h2',n:'Kit de baño',e:'🛁',d:'Higiene +60',p:20,t:'hygiene',ef:{hygiene:60}},
+  // JUGUETES
+  {id:'t1',n:'Pelota',e:'⚽',d:'Felicidad +30',p:12,t:'toy',ef:{happiness:30}},
+  {id:'t2',n:'Cuerda',e:'🪢',d:'Felicidad +20',p:8,t:'toy',ef:{happiness:20}},
+  {id:'t3',n:'Frisbee',e:'🥏',d:'Felicidad +40, Salud +5',p:18,t:'toy',ef:{happiness:40,health:5}},
+  // MEDICINA
+  {id:'m1',n:'Vitaminas',e:'💊',d:'Salud +30',p:15,t:'medicine',ef:{health:30}},
+  {id:'m2',n:'Poción mágica',e:'🧪',d:'Todo +25',p:35,t:'potion',ef:{hunger:25,hygiene:25,happiness:25,health:25}},
+  {id:'m3',n:'Botiquín',e:'🩺',d:'Salud +50',p:25,t:'medicine',ef:{health:50}},
+  // ROPA
+  {id:'r1',n:'Suéter',e:'🧥',d:'Felicidad +15, Salud +10',p:20,t:'clothing',ef:{happiness:15,health:10}},
+  {id:'r2',n:'Collar bonito',e:'📿',d:'Felicidad +20',p:16,t:'clothing',ef:{happiness:20}},
+  // CARTELES
+  {id:'p1',n:'Cartel búsqueda',e:'🪧',d:'+1 cartel (necesitás 10)',p:30,t:'poster',ef:{}},
+  // HERRAMIENTAS — 3 usos cada una
+  {id:'tl1',n:'Trampa insectos',e:'🪤',d:'3 usos — resuelve bichos',p:15,t:'tool_insect',uses:3,ef:{}},
+  {id:'tl2',n:'Detector inund.',e:'💧',d:'3 usos — resuelve agua',p:20,t:'tool_flood',uses:3,ef:{}},
+  {id:'tl3',n:'Alarma antirrobo',e:'🔔',d:'3 usos — espanta ladrones',p:25,t:'tool_burglar',uses:3,ef:{}},
+  {id:'tl4',n:'Kit anti-temblor',e:'⛑️',d:'3 usos — calma temblores',p:18,t:'tool_quake',uses:3,ef:{}},
+  {id:'tl5',n:'Impermeable',e:'🧤',d:'3 usos — protege tormentas',p:15,t:'tool_storm',uses:3,ef:{}},
+  {id:'tl6',n:'Spray anti-gato',e:'🚿',d:'3 usos — aleja al gato malo',p:20,t:'tool_cat',uses:3,ef:{}},
+  {id:'tl7',n:'Decoración fiesta',e:'🎊',d:'1 uso — mejora la fiesta',p:12,t:'tool_party',uses:1,ef:{}},
 ];
 
-// ===== EVENTOS =====
+// ===== EVENTS =====
 const EVENTS=[
-  {type:'bad',emoji:'🦹',title:'¡Ladrón!',desc:'Un ladrón intentó entrar a la casa. ¿Qué hacemos?',
-   options:[
-    {text:'📞 Llamar a la policía',correct:true,msg:'La policía llegó rápido. +15 monedas.',reward:15},
-    {text:'🔔 Activar alarma antirrobo',correct:true,tool:'tool_burglar',msg:'¡La alarma asustó al ladrón! +20 monedas.',reward:20},
-    {text:'🚪 Esconderse',correct:false,msg:'El ladrón se llevó 20 monedas.',penalty:{coins:-20}},
-    {text:'📣 Gritar fuerte',correct:false,msg:'Se llevó 10 monedas.',penalty:{coins:-10}},
+  // MALOS
+  {id:'burglar',type:'bad',e:'🦹',title:'¡Ladrón en la casa!',desc:'Alguien intentó entrar. ¡Cooper está ladrando!',
+   opts:[
+    {txt:'📞 Llamar a la policía',ok:true,msg:'La policía llegó en minutos. +15 monedas.',coins:15},
+    {txt:'🔔 Activar alarma',ok:true,tool:'tool_burglar',msg:'¡La alarma asustó al ladrón! +20 monedas.',coins:20},
+    {txt:'🚪 Esconderse',ok:false,msg:'El ladrón se llevó 20 monedas.',coins:-20},
+    {txt:'📣 Gritar',ok:false,msg:'Solo espantó al ladrón un momento. Pierde 10 monedas.',coins:-10},
   ]},
-  {type:'bad',emoji:'🪲',title:'¡Invasión de insectos!',desc:'La casa está llena de bichos. Cooper está asustado.',
-   options:[
-    {text:'🪤 Usar trampa de insectos',correct:true,tool:'tool_insect',msg:'¡Atrapaste todos los insectos! Higiene +20. +10 monedas.',reward:10,effect:{hygiene:20}},
-    {text:'🧹 Barrer fuerte',correct:false,msg:'Solo espantaste algunos. Higiene -10.',effect:{hygiene:-10}},
-    {text:'💨 Abrir ventanas',correct:false,msg:'Se fueron algunos pero volvieron.'},
+  {id:'insects',type:'bad',e:'🪲',title:'¡Invasión de bichos!',desc:'La casa está llena de insectos. Cooper tiene miedo.',
+   opts:[
+    {txt:'🪤 Usar trampa de insectos',ok:true,tool:'tool_insect',msg:'¡Todos atrapados! Higiene +20. +10 monedas.',hygiene:20,coins:10},
+    {txt:'🧹 Barrer con escoba',ok:false,msg:'Solo los moviste. Higiene -10.',hygiene:-10},
+    {txt:'💨 Abrir ventanas',ok:false,msg:'Algunos se fueron pero volvieron. Sin mejora.'},
   ]},
-  {type:'bad',emoji:'🌊',title:'¡Inundación!',desc:'El drenaje se tapó y hay agua en el piso.',
-   options:[
-    {text:'💧 Usar detector de inundaciones',correct:true,tool:'tool_flood',msg:'El detector indicó el problema exacto. ¡Resuelto! +15 monedas.',reward:15,effect:{hygiene:10}},
-    {text:'🔧 Limpiar el drenaje',correct:true,msg:'Drenaje despejado. +10 monedas.',reward:10},
-    {text:'🪣 Usar cubetas',correct:false,msg:'Tardaste mucho. Higiene -15.',effect:{hygiene:-15}},
-    {text:'😰 No hacer nada',correct:false,msg:'El agua mojó todo. Salud -10, Higiene -20.',effect:{health:-10,hygiene:-20}},
+  {id:'flood',type:'bad',e:'🌊',title:'¡Inundación!',desc:'El drenaje se tapó. Hay agua en el piso y Cooper está mojado.',
+   opts:[
+    {txt:'💧 Usar detector de inundaciones',ok:true,tool:'tool_flood',msg:'¡El detector encontró el problema exacto! Higiene +15. +15 monedas.',hygiene:15,coins:15},
+    {txt:'🔧 Limpiar el drenaje a mano',ok:true,msg:'Lo solucionaste pero tardaste. +8 monedas.',coins:8},
+    {txt:'🪣 Usar cubetas',ok:false,msg:'Tardaste demasiado. Higiene -15.',hygiene:-15},
+    {txt:'😰 No hacer nada',ok:false,msg:'Todo se mojó. Salud -10, Higiene -20.',health:-10,hygiene:-20},
   ]},
-  {type:'bad',emoji:'🌋',title:'¡Pequeño temblor!',desc:'La tierra tembló y Cooper está muy asustado.',
-   options:[
-    {text:'⛑️ Usar kit anti-temblor',correct:true,tool:'tool_quake',msg:'Cooper se calmó rapidísimo. Felicidad +20. +10 monedas.',effect:{happiness:20},reward:10},
-    {text:'🫂 Abrazar a Cooper tranquilamente',correct:true,msg:'Cooper se calmó. Felicidad +15.',effect:{happiness:15},reward:8},
-    {text:'😱 Correr por la casa',correct:false,msg:'Cooper se asustó más. Felicidad -15.',effect:{happiness:-15}},
-    {text:'📱 Revisar el teléfono',correct:false,msg:'Cooper se sintió ignorado. Felicidad -10.',effect:{happiness:-10}},
+  {id:'quake',type:'bad',e:'🌋',title:'¡Temblor!',desc:'La tierra tembló fuerte. Cooper está aterrorizado y tiembla.',
+   opts:[
+    {txt:'⛑️ Usar kit anti-temblor',ok:true,tool:'tool_quake',msg:'El kit calmó a Cooper. Felicidad +20. +10 monedas.',happiness:20,coins:10},
+    {txt:'🫂 Abrazar a Cooper',ok:true,msg:'Cooper se calmó con tu abrazo. Felicidad +12. +8 monedas.',happiness:12,coins:8},
+    {txt:'😱 Correr por la casa',ok:false,msg:'Cooper se asustó más. Felicidad -15.',happiness:-15},
+    {txt:'📱 Mirar el teléfono',ok:false,msg:'Cooper se sintió ignorado. Felicidad -10.',happiness:-10},
   ]},
-  {type:'bad',emoji:'🌧️',title:'¡Tormenta intensa!',desc:'Una tormenta sorpresa empapó a Cooper.',
-   options:[
-    {text:'🧤 Usar impermeable',correct:true,tool:'tool_storm',msg:'¡El impermeable funcionó! Cooper está seco. Higiene +30. +10 monedas.',effect:{hygiene:30},reward:10},
-    {text:'🛁 Bañar y secar a Cooper',correct:true,msg:'Cooper está limpio y seco. Higiene +25.',effect:{hygiene:25,health:5},reward:8},
-    {text:'🔥 Cerca de calefacción',correct:false,msg:'Higiene +10 pero no fue suficiente.',effect:{hygiene:10}},
-    {text:'⏰ Esperar solo',correct:false,msg:'Cooper se enfermó. Salud -15.',effect:{health:-15}},
+  {id:'storm',type:'bad',e:'🌧️',title:'¡Tormenta!',desc:'Una tormenta empapó a Cooper completamente.',
+   opts:[
+    {txt:'🧤 Usar impermeable',ok:true,tool:'tool_storm',msg:'Cooper está seco y protegido. Higiene +30. +10 monedas.',hygiene:30,coins:10},
+    {txt:'🛁 Bañar y secar a Cooper',ok:true,msg:'Cooper está limpio aunque tardaste. Higiene +22.',hygiene:22},
+    {txt:'🔥 Poner cerca de calefacción',ok:false,msg:'Ayudó un poco. Higiene +8.',hygiene:8},
+    {txt:'⏰ Esperar que se seque solo',ok:false,msg:'Cooper se enfermó. Salud -15.',health:-15},
   ]},
-  // Buenos
-  {type:'good',emoji:'🎁',title:'¡Un regalo!',desc:'Un vecino dejó un regalo para Cooper.',
-   options:[{text:'🎉 ¡Abrir el regalo!',correct:true,msg:'¡Comida y juguetes! +25 monedas. Felicidad +20.',effect:{happiness:20},reward:25}]},
-  {type:'good',emoji:'👨‍👩‍👧',title:'¡Visita de niños!',desc:'Unos niños vinieron a jugar con Cooper.',
-   options:[{text:'🎾 Dejar que jueguen',correct:true,msg:'Cooper se divirtió. Felicidad +30. +10 monedas.',effect:{happiness:30},reward:10}]},
-  {type:'good',emoji:'🌟',title:'¡Concurso de mascotas!',desc:'¡Cooper ganó el concurso más lindo del barrio!',
-   options:[{text:'🏆 ¡Celebrar!',correct:true,msg:'¡El barrio ama a Cooper! +30 monedas. Felicidad +25.',reward:30,effect:{happiness:25}}]},
-  {type:'good',emoji:'📰',title:'¡Nota en el periódico!',desc:'Un periodista quiere hacer una nota sobre Cooper.',
-   options:[{text:'📸 Posar para la foto',correct:true,msg:'¡La nota ayudó a buscar al dueño! Carteles +1. +20 monedas.',reward:20,poster:1}]},
-  {type:'good',emoji:'🍗',title:'¡Vecina muy buena!',desc:'La vecina te trajo comida casera para Cooper.',
-   options:[{text:'🙏 ¡Gracias!',correct:true,msg:'¡Qué generosa! Comida +30. +8 monedas.',effect:{hunger:30},reward:8}]},
+  // GATO MALO (nuevo)
+  {id:'badcat',type:'bad',e:'😾',title:'¡El Gato Malo del barrio!',desc:'El gato malo de la cuadra entró a la casa y está atacando a Cooper. ¡Hay que echarlo!',
+   opts:[
+    {txt:'🚿 Usar spray anti-gato',ok:true,tool:'tool_cat',msg:'¡El spray lo espantó en segundos! +15 monedas. Cooper: Felicidad +10.',happiness:10,coins:15},
+    {txt:'🧹 Perseguirlo con escoba',ok:true,msg:'Lo echaste pero Cooper se asustó. Felicidad -5. +8 monedas.',happiness:-5,coins:8},
+    {txt:'😺 Dejarlos que "se hagan amigos"',ok:false,msg:'Terrible idea. El gato arañó a Cooper. Salud -15, Felicidad -10.',health:-15,happiness:-10},
+    {txt:'🚪 Cerrar la puerta y esperar',ok:false,msg:'El gato siguió adentro un rato. Higiene -10, Felicidad -8.',hygiene:-10,happiness:-8},
+  ]},
+  // BUENOS
+  {id:'gift',type:'good',e:'🎁',title:'¡Regalo inesperado!',desc:'Un vecino muy bueno dejó una sorpresa en la puerta para Cooper.',
+   opts:[{txt:'🎉 ¡Abrir el regalo!',ok:true,msg:'¡Era comida y juguetes! +25 monedas. Felicidad +20.',happiness:20,coins:25}]},
+  {id:'kids',type:'good',e:'👨‍👩‍👧',title:'¡Visita de niños!',desc:'Unos niños del barrio vinieron a jugar con Cooper.',
+   opts:[{txt:'🎾 Dejar que jueguen',ok:true,msg:'Cooper se divirtió muchísimo. Felicidad +30. +10 monedas.',happiness:30,coins:10}]},
+  {id:'contest',type:'good',e:'🌟',title:'¡Concurso de mascotas!',desc:'¡Cooper fue elegido la mascota más linda del barrio!',
+   opts:[{txt:'🏆 ¡Celebrar!',ok:true,msg:'¡Todo el barrio ama a Cooper! +30 monedas. Felicidad +25.',coins:30,happiness:25}]},
+  {id:'newspaper',type:'good',e:'📰',title:'¡Nota en el periódico!',desc:'Un periodista quiere hacer una nota sobre Cooper para ayudar a encontrar a su dueño.',
+   opts:[{txt:'📸 Posar para la foto',ok:true,msg:'¡La nota fue viral! Carteles +1 extra. +20 monedas.',coins:20,poster:1}]},
+  {id:'neighbor',type:'good',e:'🍗',title:'¡Vecina generosa!',desc:'La vecina del fondo trajo comida casera para Cooper.',
+   opts:[{txt:'🙏 ¡Gracias!',ok:true,msg:'¡Qué buena vecina! Comida +30. +8 monedas.',hunger:30,coins:8}]},
+  // FIESTA (nuevo)
+  {id:'party',type:'party',e:'🎉',title:'¡Fiesta en el barrio!',desc:'¡El barrio organiza una fiesta y Cooper es el invitado de honor!',
+   opts:[
+    {txt:'🎊 Ir con decoración de fiesta',ok:true,tool:'tool_party',msg:'¡Cooper fue la estrella! Todo +20. +35 monedas.',hunger:20,hygiene:10,happiness:35,health:10,coins:35},
+    {txt:'🎵 Ir sin nada y bailar',ok:true,msg:'¡Cooper se divirtió igual! Felicidad +30. +20 monedas.',happiness:30,coins:20},
+    {txt:'🏠 Quedarse en casa',ok:false,msg:'Cooper se perdió la fiesta. Felicidad -10.',happiness:-10},
+  ]},
 ];
 
 // ===== UTILS =====
-function clamp(v,mn=0,mx=100){return Math.max(mn,Math.min(mx,v));}
-function hasInInventory(types){return G.inventory.some(i=>types.includes(i.type));}
-function consumeFromInventory(types){
-  const idx=G.inventory.findIndex(i=>types.includes(i.type));
-  if(idx===-1)return null;
-  const item=G.inventory[idx];
-  G.inventory.splice(idx,1);
-  return item;
-}
-function hasToolInInventory(toolType){return G.inventory.some(i=>i.type===toolType);}
-function consumeTool(toolType){
-  const idx=G.inventory.findIndex(i=>i.type===toolType);
-  if(idx===-1)return false;
-  G.inventory.splice(idx,1);
-  return true;
-}
+const clamp=(v,a=0,b=100)=>Math.max(a,Math.min(b,v));
+const hasTool=(t)=>G.inventory.some(i=>i.t===t&&i.uses>0);
+const consumeTool=(t)=>{const i=G.inventory.find(x=>x.t===t&&x.uses>0);if(i){i.uses--;if(i.uses<=0)G.inventory.splice(G.inventory.indexOf(i),1);return true;}return false;};
+const hasItem=(types)=>G.inventory.some(i=>types.includes(i.t));
+const consumeItem=(types)=>{const idx=G.inventory.findIndex(i=>types.includes(i.t));if(idx<0)return null;const it=G.inventory[idx];if(it.uses!==undefined){it.uses--;if(it.uses<=0)G.inventory.splice(idx,1);}else{G.inventory.splice(idx,1);}return it;};
 
-// ===== UI =====
-function updateCareButtons(){
-  const hasFoodItem=hasInInventory(G.FOOD_TYPES);
-  const hasHygieneItem=hasInInventory(G.HYGIENE_TYPES);
-  const hasHealItem=hasInInventory(G.HEAL_TYPES);
-  const patsLeft=G.MAX_PATS-G.patsToday;
-
-  document.getElementById('btnFeed').disabled=!hasFoodItem;
-  document.getElementById('hintFeed').textContent=hasFoodItem?'Usa objeto de mochila':'Necesitás comida en mochila';
-
-  document.getElementById('btnBath').disabled=!hasHygieneItem;
-  document.getElementById('hintBath').textContent=hasHygieneItem?'Usa objeto de mochila':'Necesitás champú/kit';
-
-  document.getElementById('btnHeal').disabled=!hasHealItem;
-  document.getElementById('hintHeal').textContent=hasHealItem?'Usa objeto de mochila':'Necesitás medicina';
-
-  document.getElementById('btnPlay').disabled=patsLeft<=0;
-  document.getElementById('hintPlay').textContent=patsLeft>0?`${patsLeft} uso${patsLeft!==1?'s':''} hoy`:'Límite diario alcanzado';
-  document.getElementById('patsNum').textContent=patsLeft;
+// ===== APPLY EFFECTS =====
+function applyFx(opt){
+  if(opt.hunger)G.hunger=clamp(G.hunger+opt.hunger);
+  if(opt.hygiene)G.hygiene=clamp(G.hygiene+opt.hygiene);
+  if(opt.happiness)G.happiness=clamp(G.happiness+opt.happiness);
+  if(opt.health)G.health=clamp(G.health+opt.health);
+  if(opt.coins)G.coins=Math.max(0,G.coins+(opt.coins||0));
+  if(opt.poster)G.posters+=opt.poster;
 }
 
+// ===== LOG =====
+function log(msg){
+  G.log.unshift(msg);
+  if(G.log.length>50)G.log.pop();
+  document.getElementById('gameLog').innerHTML=G.log.map(m=>`<p>${m}</p>`).join('');
+}
+
+// ===== ACHIEVEMENTS =====
+function checkAchievements(){
+  const ach=[
+    {id:'rich',cond:G.coins>=200,msg:'💰 ¡Rico! Tenés 200 monedas'},
+    {id:'survivor',cond:G.day>=50,msg:'🛡️ ¡Superviviente! 50 días con Cooper'},
+    {id:'healthy',cond:G.health>=100,msg:'❤️ ¡Salud perfecta! Cooper al 100%'},
+    {id:'happy',cond:G.happiness>=100,msg:'🌟 ¡Felicidad máxima!'},
+  ];
+  ach.forEach(a=>{if(a.cond&&!G.achievements.has(a.id)){G.achievements.add(a.id);showAchievement(a.msg);}});
+}
+function showAchievement(msg){
+  const el=document.createElement('div');el.className='achievement-pop';el.textContent=msg;
+  document.body.appendChild(el);setTimeout(()=>el.remove(),3200);
+}
+
+// ===== UI UPDATE =====
 function updateUI(){
   document.getElementById('dayNum').textContent=G.day;
   document.getElementById('coinsNum').textContent=G.coins;
   document.getElementById('postersNum').textContent=G.posters;
+  document.getElementById('patsNum').textContent=Math.max(0,G.MAX_PATS-G.patsToday);
+  document.getElementById('pCount').textContent=G.posters;
+  document.getElementById('pFill').style.width=Math.round(G.posters/10*100)+'%';
+
   ['Hunger','Hygiene','Happiness','Health'].forEach(s=>{
-    const key=s.toLowerCase();
-    const v=Math.round(G[key]);
-    document.getElementById('bar'+s).style.width=v+'%';
+    const k=s.toLowerCase(),v=Math.round(G[k]);
+    const bar=document.getElementById('bar'+s);
+    bar.style.width=v+'%';
+    bar.classList.toggle('low',v<25);
     document.getElementById('lbl'+s).textContent=v;
   });
-  let mood='😊 Contento y feliz';
-  if(G.health<25)mood='😰 ¡Me siento muy mal!';
-  else if(G.happiness<25)mood='😢 Estoy triste...';
-  else if(G.hunger<25)mood='😩 ¡Tengo mucha hambre!';
-  else if(G.hygiene<25)mood='🤢 Necesito un baño';
-  else if(G.health>80&&G.happiness>80)mood='🥰 ¡Me siento genial!';
+
+  // Pet visual state
+  const pet=document.getElementById('petEmoji');
+  pet.className='pet-emoji';
+  if(G.health<=0||G.over){pet.classList.add('dead');}
+  else if(G.hygiene<25){pet.classList.add('dirty');}
+  else if(G.happiness<25){pet.classList.add('sad');}
+
+  // Status icons
+  const icons=[];
+  if(G.hunger<25)icons.push('😩');
+  if(G.hygiene<25)icons.push('🤢');
+  if(G.happiness<25)icons.push('😢');
+  if(G.health<25)icons.push('🤒');
+  if(G.hunger>=80&&G.hygiene>=80&&G.happiness>=80&&G.health>=80)icons.push('✨');
+  document.getElementById('statusIcons').textContent=icons.join(' ');
+
+  // Mood
+  let mood='😊 ¡Contento y feliz!';
+  if(G.health<25)mood='😰 ¡Me siento muy muy mal!';
+  else if(G.hunger<25)mood='😩 ¡Tengo muuucha hambre!';
+  else if(G.hygiene<25)mood='🤢 ¡Estoy muy sucio!';
+  else if(G.happiness<25)mood='😢 Estoy muy triste...';
+  else if(G.health>85&&G.happiness>85)mood='🥰 ¡Me siento genial!';
   document.getElementById('petMood').textContent=mood;
-  const pct=Math.round(G.posters/10*100);
-  document.getElementById('posterCount').textContent=G.posters;
-  document.getElementById('posterBarFill').style.width=pct+'%';
+
+  updateButtons();
   renderInventory();
-  updateCareButtons();
+  checkAchievements();
 }
 
-function addLog(msg){
-  G.log.push(msg);
-  const lines=G.log.slice(-30).reverse().map(m=>`<p>${m}</p>`).join('');
-  document.getElementById('gameLog').innerHTML=lines;
-}
-
-// ===== CARICIA AL PERRO =====
-function petPat(){
+function updateButtons(){
+  const foodOk=hasItem(['food','potion']);
+  const bathOk=hasItem(['hygiene','potion']);
+  const healOk=hasItem(['medicine','potion']);
   const patsLeft=G.MAX_PATS-G.patsToday;
-  if(patsLeft<=0){addLog('🚫 Ya acariciaste a Cooper demasiado por hoy, descansá un poco.');return;}
+  // Si felicidad=0, Cooper no quiere comer (penaliza comida también)
+  const wontEat=G.happiness<=0;
+
+  document.getElementById('btnFeed').disabled=!foodOk||wontEat;
+  document.getElementById('hFeed').textContent=wontEat?'Cooper no quiere comer':foodOk?'Toca para alimentar':'Comprá comida';
+
+  document.getElementById('btnBath').disabled=!bathOk;
+  document.getElementById('hBath').textContent=bathOk?'Toca para bañar':'Comprá champú';
+
+  document.getElementById('btnPlay').disabled=patsLeft<=0;
+  document.getElementById('hPlay').textContent=patsLeft>0?`${patsLeft} uso${patsLeft!==1?'s':''} hoy`:'Límite diario';
+
+  document.getElementById('btnHeal').disabled=!healOk;
+  document.getElementById('hHeal').textContent=healOk?'Toca para curar':'Comprá medicina';
+}
+
+// ===== PAT =====
+function petPat(){
+  if(G.over||G.won)return;
+  const left=G.MAX_PATS-G.patsToday;
+  if(left<=0){log('🚫 Ya acariciaste mucho a Cooper hoy. ¡Mañana de nuevo!');return;}
   G.patsToday++;
-  G.happiness=clamp(G.happiness+5);
-  const coinBonus=Math.floor(Math.random()*4)+2; // 2-5 monedas
-  G.coins+=coinBonus;
-  addLog(`🐾 Acariciaste a Cooper. Felicidad +5. ¡+${coinBonus} monedas de buena energía!`);
-  // popup visual
-  const pop=document.createElement('div');
-  pop.className='coins-pop';
-  pop.textContent=`+${coinBonus}🪙`;
-  document.getElementById('petWrap').appendChild(pop);
-  setTimeout(()=>pop.remove(),1000);
-  const pe=document.getElementById('petEmoji');
-  pe.style.transform='scale(1.25)';
-  setTimeout(()=>pe.style.transform='',300);
+  G.happiness=clamp(G.happiness+4);
+  const coins=Math.floor(Math.random()*4)+2;
+  G.coins+=coins;
+  log(`🐾 Acariciaste a Cooper. Felicidad +4. +${coins} monedas.`);
+  const pop=document.createElement('div');pop.className='coins-pop';pop.textContent=`+${coins}🪙`;
+  document.getElementById('petWrap').appendChild(pop);setTimeout(()=>pop.remove(),1000);
+  const pe=document.getElementById('petEmoji');pe.style.transform='scale(1.2)';setTimeout(()=>pe.style.transform='',280);
   updateUI();
 }
 
-// ===== BOTONES DE CUIDADO =====
-function useCareBtn(type){
+// ===== CARE BUTTONS =====
+function useBtn(type){
+  if(G.over||G.won)return;
   if(type==='play'){
-    if(G.patsToday>=G.MAX_PATS){addLog('🚫 Límite de felicidad manual para hoy alcanzado.');return;}
-    G.patsToday++;
-    G.happiness=clamp(G.happiness+10);
-    addLog('😊 Hiciste algo divertido con Cooper. Felicidad +10.');
+    if(G.patsToday>=G.MAX_PATS){log('🚫 Límite de juego diario alcanzado.');return;}
+    G.patsToday++;G.happiness=clamp(G.happiness+10);
+    log('🎾 Jugaste con Cooper. Felicidad +10.');
   } else if(type==='feed'){
-    const item=consumeFromInventory(G.FOOD_TYPES);
-    if(!item){addLog('❌ No hay comida en la mochila.');return;}
-    const eff=item.effect||{};
-    Object.keys(eff).forEach(k=>{if(G[k]!==undefined)G[k]=clamp(G[k]+eff[k]);});
-    addLog(`🍖 Usaste ${item.emoji} ${item.name}. ${Object.entries(eff).map(([k,v])=>k+' +'+v).join(', ')}`);
+    if(G.happiness<=0){log('😢 Cooper está tan triste que no quiere comer nada.');return;}
+    const it=consumeItem(['food','potion']);
+    if(!it){log('❌ No hay comida en la mochila.');return;}
+    applyFx(it.ef||{});
+    log(`🍖 Usaste ${it.e} ${it.n}. Comida +${it.ef.hunger||0}`);
   } else if(type==='bath'){
-    const item=consumeFromInventory(G.HYGIENE_TYPES);
-    if(!item){addLog('❌ No hay champú/kit en la mochila.');return;}
-    const eff=item.effect||{};
-    Object.keys(eff).forEach(k=>{if(G[k]!==undefined)G[k]=clamp(G[k]+eff[k]);});
-    addLog(`🛁 Usaste ${item.emoji} ${item.name}. ${Object.entries(eff).map(([k,v])=>k+' +'+v).join(', ')}`);
+    const it=consumeItem(['hygiene','potion']);
+    if(!it){log('❌ No hay champú en la mochila.');return;}
+    applyFx(it.ef||{});
+    log(`🛁 Usaste ${it.e} ${it.n}. Higiene +${it.ef.hygiene||0}`);
   } else if(type==='heal'){
-    const item=consumeFromInventory(G.HEAL_TYPES);
-    if(!item){addLog('❌ No hay medicina en la mochila.');return;}
-    const eff=item.effect||{};
-    Object.keys(eff).forEach(k=>{if(G[k]!==undefined)G[k]=clamp(G[k]+eff[k]);});
-    addLog(`💊 Usaste ${item.emoji} ${item.name}. ${Object.entries(eff).map(([k,v])=>k+' +'+v).join(', ')}`);
+    const it=consumeItem(['medicine','potion']);
+    if(!it){log('❌ No hay medicina en la mochila.');return;}
+    applyFx(it.ef||{});
+    log(`💊 Usaste ${it.e} ${it.n}. Salud +${it.ef.health||0}`);
   }
   updateUI();
 }
 
-// ===== TIENDA =====
+// ===== SHOP =====
 function renderShop(){
-  document.getElementById('shopGrid').innerHTML=SHOP_ITEMS.map(item=>`
-    <div class="shop-item" onclick="buyItem('${item.id}')">
-      <span class="item-emoji">${item.emoji}</span>
-      <div class="item-name">${item.name}</div>
-      <div class="item-desc">${item.desc}</div>
-      <div class="item-price">🪙 ${item.price}</div>
-    </div>`).join('');
+  document.getElementById('shopGrid').innerHTML=SHOP.map(item=>{
+    const isTool=item.uses!==undefined;
+    return`<div class="shop-item${isTool?' tool-item':''}" onclick="buy('${item.id}')">
+      ${isTool?`<span class="uses-badge">${item.uses}x</span>`:''}
+      <span class="ie">${item.e}</span>
+      <div class="in">${item.n}</div>
+      <div class="id">${item.d}</div>
+      <div class="ip">🪙 ${item.p}</div>
+    </div>`;}).join('');
 }
 
-function buyItem(id){
-  const item=SHOP_ITEMS.find(i=>i.id===id);
-  if(!item)return;
-  if(G.coins<item.price){addLog('❌ No tenés suficientes monedas para '+item.name);switchTab('log');return;}
-  G.coins-=item.price;
-  if(item.type==='poster'){
-    G.posters++;
-    addLog('🪧 Compraste un cartel de búsqueda. Total: '+G.posters+'/10');
+function buy(id){
+  const item=SHOP.find(i=>i.id===id);if(!item)return;
+  if(G.coins<item.p){log(`❌ No tenés monedas para ${item.n}`);switchTab('log');return;}
+  G.coins-=item.p;
+  if(item.t==='poster'){
+    G.posters++;log(`🪧 Cartel colocado. Total: ${G.posters}/10`);
     if(G.posters>=10)triggerWin();
   } else {
-    G.inventory.push({...item,uid:Date.now()+Math.random()});
-    addLog('🛒 Compraste: '+item.emoji+' '+item.name+' (en mochila)');
+    const entry={...item,uid:Date.now()+Math.random()};
+    if(item.uses!==undefined)entry.uses=item.uses;
+    G.inventory.push(entry);
+    log(`🛒 Compraste: ${item.e} ${item.n}${item.uses?` (${item.uses} usos)`:''}`);
   }
   updateUI();
 }
 
 function renderInventory(){
-  const area=document.getElementById('inventoryArea');
-  if(!G.inventory.length){
-    area.innerHTML='<span class="inv-empty">Vacía — comprá en la tienda</span>';
-    return;
-  }
-  area.innerHTML=G.inventory.map((it,i)=>`
-    <div class="inv-item" onclick="useItemByIndex(${i})" title="Usar ${it.name}">${it.emoji} ${it.name}</div>`).join('');
+  const g=document.getElementById('invGrid');
+  if(!G.inventory.length){g.innerHTML='<span class="inv-empty">Vacía — comprá en la tienda</span>';return;}
+  g.innerHTML=G.inventory.map((it,i)=>`<div class="inv-item" onclick="useInvItem(${i})">${it.e} ${it.n}${it.uses!==undefined?`<span class="uses">${it.uses}x</span>`:''}</div>`).join('');
 }
 
-function useItemByIndex(i){
-  const item=G.inventory[i];
-  if(!item)return;
-  const eff=item.effect||{};
-  Object.keys(eff).forEach(k=>{if(G[k]!==undefined)G[k]=clamp(G[k]+eff[k]);});
-  addLog('✅ Usaste: '+item.emoji+' '+item.name);
-  G.inventory.splice(i,1);
+function useInvItem(i){
+  const it=G.inventory[i];if(!it)return;
+  // herramientas no se usan manualmente (solo en eventos)
+  if(it.t&&it.t.startsWith('tool_')){log(`⚠️ ${it.n} solo se usa automáticamente en eventos.`);return;}
+  const ef=it.ef||{};
+  applyFx(ef);
+  log(`✅ Usaste ${it.e} ${it.n}`);
+  if(it.uses!==undefined){it.uses--;if(it.uses<=0)G.inventory.splice(i,1);}
+  else G.inventory.splice(i,1);
   updateUI();
 }
 
-function switchTab(tab){
-  document.getElementById('tabShop').classList.toggle('hidden',tab!=='shop');
-  document.getElementById('tabLog').classList.toggle('hidden',tab!=='log');
-  document.getElementById('tabBtnShop').classList.toggle('active',tab==='shop');
-  document.getElementById('tabBtnLog').classList.toggle('active',tab==='log');
+// ===== EVENTS =====
+function pickEvent(){
+  // evitar repetir el mismo evento dos días seguidos
+  const last=G.dayEvents[G.dayEvents.length-1];
+  const pool=EVENTS.filter(e=>e.id!==last);
+  const badPool=pool.filter(e=>e.type==='bad');
+  const goodPool=pool.filter(e=>e.type==='good'||e.type==='party');
+  // probabilidad: 50% malo, 35% bueno, 15% nada
+  const r=Math.random();
+  if(r<0.50&&badPool.length)return badPool[Math.floor(Math.random()*badPool.length)];
+  if(r<0.85&&goodPool.length)return goodPool[Math.floor(Math.random()*goodPool.length)];
+  return null;
 }
 
-// ===== EVENTOS =====
-function triggerEvent(){
-  if(G.activeEvent)return;
-  if(Math.random()>0.6)return;
-  const pool=EVENTS.filter(e=>e.type==='bad'?Math.random()<0.55:Math.random()<0.35);
-  if(!pool.length)return;
-  const ev=pool[Math.floor(Math.random()*pool.length)];
-  G.activeEvent=ev;G.eventHandled=false;
+function showEvent(ev){
+  G.activeEvent=ev;G.eventDone=false;
+  G.dayEvents.push(ev.id);
+  if(G.dayEvents.length>5)G.dayEvents.shift();
+
+  // build options: show tool option only if have tool, always show non-tool options
+  const opts=ev.opts.filter(o=>!o.tool||hasTool(o.tool));
+  // if all opts require tools and none available, show non-tool options
+  const finalOpts=opts.length>0?opts:ev.opts.filter(o=>!o.tool);
+  G.eventOpts=finalOpts;
+
   const panel=document.getElementById('eventPanel');
   panel.style.display='';
+  const typeClass=ev.type==='party'?'party':ev.type==='good'?'good':'bad';
+  panel.innerHTML=`<div class="event-box ${typeClass}">
+    <h3>${ev.e} ${ev.title}</h3>
+    <p>${ev.desc}</p>
+    <div class="event-opts" id="eOpts">
+      ${finalOpts.map((o,i)=>`<button class="event-opt" id="eopt${i}" onclick="chooseOpt(${i})">${o.txt}${o.tool?`<span class="tool-badge">🔧 herramienta</span>`:''}</button>`).join('')}
+    </div>
+  </div>`;
 
-  // filtrar opciones: mostrar opción con herramienta solo si la tenés
-  const visibleOpts=ev.options.filter(opt=>{
-    if(opt.tool)return hasToolInInventory(opt.tool);
-    return true;
-  });
-  // si no hay ninguna opción con tool, igual mostramos las sin tool
-  const finalOpts=visibleOpts.length>0?visibleOpts:ev.options.filter(o=>!o.tool);
-
-  panel.innerHTML=`
-    <div class="event-box ${ev.type==='good'?'good':''}">
-      <h3>${ev.emoji} ${ev.title}</h3>
-      <p>${ev.desc}</p>
-      <div class="event-opts">
-        ${finalOpts.map((opt,i)=>`<button class="event-opt" onclick="chooseOption(${i},'${ev.title.replace(/'/g,"\\'")}',${JSON.stringify(finalOpts).replace(/</g,'&lt;')})">${opt.text}${opt.tool&&hasToolInInventory(opt.tool)?' ✨ (en mochila)':''}</button>`).join('')}
-      </div>
-    </div>`;
-  document.getElementById('nextDayBtn').disabled=ev.type==='bad';
-  addLog('⚡ Evento: '+ev.title);
-  // guardamos opts en el estado para acceder fácil
-  G.currentOpts=finalOpts;
+  if(ev.type==='bad')document.getElementById('nextDayBtn').disabled=true;
+  log(`⚡ Evento: ${ev.title}`);
 }
 
-function chooseOption(i){
-  const ev=G.activeEvent;
-  if(!ev||G.eventHandled)return;
-  G.eventHandled=true;
-  const opt=G.currentOpts[i];
-  if(opt.effect)Object.keys(opt.effect).forEach(k=>{if(G[k]!==undefined)G[k]=clamp(G[k]+opt.effect[k]);});
-  if(opt.reward)G.coins+=opt.reward;
-  if(opt.poster){G.posters+=opt.poster;}
-  if(opt.penalty){const p=opt.penalty;if(p.coins)G.coins=Math.max(0,G.coins+p.coins);}
+function chooseOpt(i){
+  if(!G.activeEvent||G.eventDone)return;
+  G.eventDone=true;
+  const opt=G.eventOpts[i];
+
+  // disable all buttons immediately
+  G.eventOpts.forEach((_,idx)=>{
+    const btn=document.getElementById('eopt'+idx);
+    if(btn){btn.disabled=true;btn.classList.add(idx===i?(opt.ok?'correct':'wrong'):'');}
+  });
+
+  // consume tool if used
   if(opt.tool)consumeTool(opt.tool);
-  addLog((opt.correct?'✅':'❌')+' '+opt.msg);
-  const btns=document.querySelectorAll('.event-opt');
-  btns.forEach((b,idx)=>{b.classList.add(idx===i?(opt.correct?'correct':'wrong'):'');b.disabled=true;});
+
+  // apply effects
+  applyFx(opt);
+
+  log((opt.ok?'✅':'❌')+' '+opt.msg);
+  updateUI();
+
   setTimeout(()=>{
     document.getElementById('eventPanel').style.display='none';
-    G.activeEvent=null;G.currentOpts=null;
+    G.activeEvent=null;G.eventOpts=[];
     document.getElementById('nextDayBtn').disabled=false;
-    if(G.posters>=10)triggerWin();
-    updateUI();
-  },2200);
-  updateUI();
+    if(G.posters>=10){triggerWin();return;}
+    checkDeath();
+  },2000);
 }
 
-// ===== SIGUIENTE DÍA =====
+// ===== DAY PROGRESSION =====
 function nextDay(){
-  if(G.gameOver||G.won)return;
-  G.day++;
-  G.hunger=clamp(G.hunger-12);
-  G.hygiene=clamp(G.hygiene-8);
-  G.happiness=clamp(G.happiness-6);
-  G.patsToday=0; // reset caricias
-  const coinGain=5+Math.floor(Math.random()*8);
-  G.coins+=coinGain;
+  if(G.over||G.won)return;
+  G.day++;G.patsToday=0;
+
+  // Daily decay
+  const hungerDecay=G.happiness<25?18:12; // si triste, no come bien = más hambre
+  G.hunger=clamp(G.hunger-hungerDecay);
+  G.hygiene=clamp(G.hygiene-9);
+  G.happiness=clamp(G.happiness-7);
+
+  // Health consequences
   let hd=0;
-  if(G.hunger<25)hd-=5;
-  if(G.hygiene<25)hd-=5;
-  if(G.happiness<25)hd-=3;
+  if(G.hunger<20){hd-=8;log('⚠️ Cooper tiene demasiada hambre. Salud -8');}
+  if(G.hygiene<20){hd-=6;log('⚠️ Cooper está muy sucio. Salud -6');}
+  if(G.happiness<20){hd-=4;log('⚠️ Cooper está muy triste. Salud -4');}
   if(hd)G.health=clamp(G.health+hd);
-  addLog(`📅 Día ${G.day} comenzó. +${coinGain} monedas.`);
-  triggerEvent();
-  if(G.health<=0){triggerGameOver();return;}
-  if(G.day>=100&&G.posters<10){
+
+  // Daily coins
+  const coins=5+Math.floor(Math.random()*8);
+  G.coins+=coins;
+  log(`📅 Día ${G.day} — +${coins} monedas de trabajo.`);
+
+  // Event
+  const ev=pickEvent();
+  if(ev)showEvent(ev);
+
+  // Death check
+  if(G.health<=0){triggerGameOver('hambre y descuido');return;}
+  if(G.hunger<=0&&G.health<30){triggerGameOver('inanición');return;}
+
+  // Win on day 100
+  if(G.day>=100&&G.posters>=10){triggerWin();return;}
+  if(G.day>100&&G.posters<10){
     addRankEntry(G.playerName,G.day,false);
-    showModal('😢','100 días pasaron...','Llegaron los 100 días pero no conseguiste 10 carteles. El dueño de Cooper nunca pudo encontrarte. ¡No te rindas!','Intentar de nuevo',()=>{goToMenu();});
-    G.gameOver=true;return;
+    showModal('😢','100 días pasaron...','Llegaron los 100 días pero no colocaste suficientes carteles. ¡Inténtalo de nuevo!','Intentar de nuevo',goToMenu);
+    G.over=true;return;
   }
-  if(G.posters>=10)triggerWin();
   updateUI();
 }
 
-function triggerGameOver(){
-  G.gameOver=true;
+function checkDeath(){
+  if(G.health<=0)triggerGameOver('salud crítica');
+  else if(G.hunger<=0&&G.health<30)triggerGameOver('inanición');
+}
+
+function triggerGameOver(reason){
+  if(G.over)return;G.over=true;
   addRankEntry(G.playerName,G.day,false);
-  showModal('💀','¡Cooper está muy mal!','La salud de Cooper llegó a 0. Necesita más cuidado. Sobreviviste '+G.day+' días.','Intentar de nuevo',()=>{goToMenu();});
+  updateUI();
+  showModal('💀',`¡Cooper no pudo más!`,`Cooper murió por ${reason} en el día ${G.day}. Sobreviviste ${G.day} días. ¡No te rindas, podés hacerlo mejor!`,'Intentar de nuevo',goToMenu);
 }
 function triggerWin(){
   if(G.won)return;G.won=true;
   addRankEntry(G.playerName,G.day,true);
-  showModal('🎉','¡Encontraron al dueño!','¡Los carteles funcionaron! Después de '+G.day+' días, el dueño de Cooper los encontró. ¡Misión cumplida! 🐾💕','¡Jugar de nuevo!',()=>{goToMenu();});
+  showModal('🎉','¡Encontraron al dueño!',`¡Los carteles funcionaron! Después de ${G.day} días cuidando a Cooper, su dueño los encontró. ¡Misión cumplida! 🐾💕`,'¡Jugar de nuevo!',goToMenu);
 }
 
+// ===== TABS =====
+function switchTab(tab){
+  document.getElementById('tabShop').classList.toggle('hidden',tab!=='shop');
+  document.getElementById('tabLog').classList.toggle('hidden',tab!=='log');
+  document.getElementById('tShop').classList.toggle('active',tab==='shop');
+  document.getElementById('tLog').classList.toggle('active',tab==='log');
+}
+
+// ===== MODAL =====
 function showModal(emoji,title,text,btnText,cb){
-  document.getElementById('modalEmoji').textContent=emoji;
-  document.getElementById('modalTitle').textContent=title;
-  document.getElementById('modalText').textContent=text;
-  const btn=document.getElementById('modalBtn');
-  btn.textContent=btnText;
-  btn.onclick=()=>{document.getElementById('modal').classList.add('hidden');cb&&cb();};
+  document.getElementById('mEmoji').textContent=emoji;
+  document.getElementById('mTitle').textContent=title;
+  document.getElementById('mText').textContent=text;
+  const btn=document.getElementById('mBtn');btn.textContent=btnText;
+  btn.onclick=()=>{document.getElementById('modal').classList.add('hidden');if(cb)cb();};
   document.getElementById('modal').classList.remove('hidden');
 }
-function closeModal(){document.getElementById('modal').classList.add('hidden');}
 
-// ===== NAVEGACIÓN =====
+// ===== NAVIGATION =====
 function startGame(){
   const name=(document.getElementById('playerName').value||'').trim();
-  if(!name){document.getElementById('playerName').focus();document.getElementById('playerName').style.borderColor='#ff6b6b';return;}
+  if(!name){const inp=document.getElementById('playerName');inp.style.borderColor='#ff6b6b';inp.focus();return;}
   document.getElementById('playerName').style.borderColor='';
   G.playerName=name;
-  resetGameState();
+  resetState();
   document.getElementById('screen-intro').style.display='none';
   document.getElementById('screen-game').style.display='block';
-  renderShop();
-  updateUI();
-  addLog('🐾 ¡'+name+' encontró a Cooper! Ayudalo a llegar a su hogar.');
-  addLog('🎯 Meta: comprar 10 carteles y sobrevivir 100 días.');
+  renderShop();updateUI();
+  log(`🐾 ¡${name} encontró a Cooper! Cuidalo bien.`);
+  log('🎯 Meta: 10 carteles en 100 días.');
 }
-
 function goToMenu(){
   document.getElementById('screen-game').style.display='none';
   document.getElementById('screen-intro').style.display='flex';
   document.getElementById('playerName').value='';
+  document.getElementById('modal').classList.add('hidden');
   renderRanking();
 }
-
-function resetGameState(){
-  Object.assign(G,{day:1,coins:50,posters:0,hunger:70,hygiene:80,happiness:75,health:90,
-    inventory:[],log:[],activeEvent:null,eventHandled:false,gameOver:false,won:false,patsToday:0,currentOpts:null});
+function resetState(){
+  G.day=1;G.coins=50;G.posters=0;G.hunger=70;G.hygiene=80;G.happiness=75;G.health=90;
+  G.inventory=[];G.log=[];G.activeEvent=null;G.eventDone=false;G.eventOpts=[];
+  G.over=false;G.won=false;G.patsToday=0;G.achievements=new Set();G.dayEvents=[];
   document.getElementById('eventPanel').style.display='none';
   document.getElementById('nextDayBtn').disabled=false;
   document.getElementById('gameLog').innerHTML='';
+  document.getElementById('invGrid').innerHTML='';
 }
-
-// enter para jugar
 document.getElementById('playerName').addEventListener('keydown',e=>{if(e.key==='Enter')startGame();});
 </script>
 </body>
 </html>
-GAMEFILE
