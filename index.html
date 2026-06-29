@@ -323,38 +323,38 @@ const SHOP=[
 // ===== EVENTS =====
 // cada evento tiene: tool (herramienta que lo resuelve), penaltyFx (si no lo resuelve), emoji de escena
 const EVENTS=[
-  {id:'burglar',type:'bad',e:'🦹',title:'¡Ladrón en la casa!',desc:'Alguien entró a robar. Cooper está ladrando desesperado.',tool:'tool_burglar',sceneBg:'#1a0a0a',
-   solvedMsg:'🔔 ¡La alarma espantó al ladrón! +15 monedas.',solvedFx:{coins:15},
-   failMsg:'💸 El ladrón se llevó 25 monedas sin que pudieras hacer nada.',failFx:{coins:-25}},
-  {id:'insects',type:'bad',e:'🪲',title:'¡Invasión de bichos!',desc:'La casa está llena de insectos. Cooper tiene miedo.',tool:'tool_insect',sceneBg:'#0a1a0a',
-   solvedMsg:'🪤 ¡Trampa activada! Todos los bichos atrapados. Higiene +15. +10 monedas.',solvedFx:{hygiene:15,coins:10},
+  {id:'burglar',type:'bad',e:'🦹',title:'¡Ladrón en la casa!',desc:'Alguien entró a robar. Cooper está ladrando desesperado.',tool:'tool_burglar',
+   solvedMsg:'🔔 ¡La alarma espantó al ladrón! +15 monedas.',solvedFx:{coins:15},solvedItems:['f2'],
+   failMsg:'💸 El ladrón se llevó 25 monedas.',failFx:{coins:-25}},
+  {id:'insects',type:'bad',e:'🪲',title:'¡Invasión de bichos!',desc:'La casa está llena de insectos. Cooper tiene miedo.',tool:'tool_insect',
+   solvedMsg:'🪤 ¡Trampa activada! Bichos atrapados. Higiene +15. +10 monedas.',solvedFx:{hygiene:15,coins:10},solvedItems:['h1'],
    failMsg:'🪲 Los bichos invadieron todo. Higiene -20.',failFx:{hygiene:-20}},
-  {id:'flood',type:'bad',e:'🌊',title:'¡Inundación!',desc:'El drenaje tapado llenó el piso de agua. ¡Cooper está mojado!',tool:'tool_flood',sceneBg:'#001a2e',
-   solvedMsg:'💧 ¡El detector encontró el problema! Higiene +10. +15 monedas.',solvedFx:{hygiene:10,coins:15},
+  {id:'flood',type:'bad',e:'🌊',title:'¡Inundación!',desc:'El drenaje tapado llenó el piso de agua. ¡Cooper está mojado!',tool:'tool_flood',
+   solvedMsg:'💧 ¡Detector al rescate! Higiene +10. +15 monedas.',solvedFx:{hygiene:10,coins:15},solvedItems:['h2'],
    failMsg:'🌊 Todo se inundó. Salud -10, Higiene -25.',failFx:{health:-10,hygiene:-25}},
-  {id:'quake',type:'bad',e:'🌋',title:'¡Temblor!',desc:'La tierra tembló fuerte. Cooper está aterrorizado.',tool:'tool_quake',sceneBg:'#1a0a00',
-   solvedMsg:'⛑️ ¡El kit calmó a Cooper! Felicidad +15. +10 monedas.',solvedFx:{happiness:15,coins:10},
+  {id:'quake',type:'bad',e:'🌋',title:'¡Temblor!',desc:'La tierra tembló fuerte. Cooper está aterrorizado.',tool:'tool_quake',
+   solvedMsg:'⛑️ ¡Kit usado! Cooper se calmó. Felicidad +15. +10 monedas.',solvedFx:{happiness:15,coins:10},solvedItems:['t1'],
    failMsg:'😱 Cooper quedó muy asustado. Felicidad -20, Salud -8.',failFx:{happiness:-20,health:-8}},
-  {id:'storm',type:'bad',e:'🌧️',title:'¡Tormenta!',desc:'Una tormenta fuerte empapó a Cooper por completo.',tool:'tool_storm',sceneBg:'#0a0a1a',
-   solvedMsg:'🧤 ¡Impermeable puesto! Cooper está seco. Higiene +20. +10 monedas.',solvedFx:{hygiene:20,coins:10},
+  {id:'storm',type:'bad',e:'🌧️',title:'¡Tormenta!',desc:'Una tormenta fuerte empapó a Cooper por completo.',tool:'tool_storm',
+   solvedMsg:'🧤 ¡Impermeable usado! Cooper seco. Higiene +20. +10 monedas.',solvedFx:{hygiene:20,coins:10},solvedItems:['m1'],
    failMsg:'🌧️ Cooper se empapó y enfermó. Salud -15, Higiene -20.',failFx:{health:-15,hygiene:-20}},
-  {id:'badcat',type:'bad',e:'😾',title:'¡El Gato Malo!',desc:'El gato malo del barrio entró y está atacando a Cooper.',tool:'tool_cat',sceneBg:'#1a0a1a',
-   solvedMsg:'🚿 ¡El spray echó al gato! Felicidad +10. +15 monedas.',solvedFx:{happiness:10,coins:15},
+  {id:'badcat',type:'bad',e:'😾',title:'¡El Gato Malo!',desc:'El gato malo del barrio entró y está atacando a Cooper.',tool:'tool_cat',
+   solvedMsg:'🚿 ¡El spray echó al gato! Felicidad +10. +15 monedas.',solvedFx:{happiness:10,coins:15},solvedItems:['r2'],
    failMsg:'😾 El gato arañó a Cooper. Salud -12, Felicidad -10.',failFx:{health:-12,happiness:-10}},
   // BUENOS
-  {id:'gift',type:'good',e:'🎁',title:'¡Regalo inesperado!',desc:'Un vecino dejó un regalo enorme para Cooper.',tool:null,sceneBg:'#0a1a0a',
-   solvedMsg:'🎁 ¡Era comida y juguetes! Comida +20, Felicidad +20. +25 monedas.',solvedFx:{hunger:20,happiness:20,coins:25},failFx:{}},
-  {id:'kids',type:'good',e:'👧',title:'¡Visita de niños!',desc:'Unos niños del barrio vinieron a jugar con Cooper.',tool:null,sceneBg:'#0a1a0a',
-   solvedMsg:'👧 Cooper jugó feliz con los niños. Felicidad +30. +10 monedas.',solvedFx:{happiness:30,coins:10},failFx:{}},
-  {id:'contest',type:'good',e:'🌟',title:'¡Concurso de mascotas!',desc:'¡Cooper fue elegido la mascota más linda del barrio!',tool:null,sceneBg:'#1a1500',
-   solvedMsg:'🏆 ¡Ganó el primer puesto! +30 monedas, Felicidad +25.',solvedFx:{happiness:25,coins:30},failFx:{}},
-  {id:'newspaper',type:'good',e:'📰',title:'¡Nota en el periódico!',desc:'Un periodista quiere hacer una nota sobre Cooper.',tool:null,sceneBg:'#0a0a1a',
-   solvedMsg:'📸 ¡La nota fue viral! Cartel extra +1. +20 monedas.',solvedFx:{coins:20,poster:1},failFx:{}},
-  {id:'neighbor',type:'good',e:'🍗',title:'¡Vecina generosa!',desc:'La vecina trajo comida casera para Cooper.',tool:null,sceneBg:'#0a1a0a',
-   solvedMsg:'🙏 ¡Qué buena vecina! Comida +35. +8 monedas.',solvedFx:{hunger:35,coins:8},failFx:{}},
-  {id:'party',type:'good',e:'🎉',title:'¡Fiesta en el barrio!',desc:'¡El barrio organiza una fiesta y Cooper es el invitado de honor!',tool:'tool_party',sceneBg:'#1a0a1a',
-   solvedMsg:'🎊 ¡Cooper fue la estrella de la fiesta! Todo +25. +35 monedas.',solvedFx:{hunger:25,hygiene:15,happiness:40,health:10,coins:35},
-   failMsg:'🎉 Cooper fue igual pero sin decoración. Felicidad +20. +15 monedas.',failFx:{happiness:20,coins:15}},
+  {id:'gift',type:'good',e:'🎁',title:'¡Regalo inesperado!',desc:'Un vecino dejó un regalo enorme para Cooper.',tool:null,
+   solvedMsg:'¡Era comida y juguetes! Comida +20, Felicidad +20. +25 monedas.',solvedFx:{hunger:20,happiness:20,coins:25},solvedItems:['f1','t2'],failFx:{}},
+  {id:'kids',type:'good',e:'👧',title:'¡Visita de niños!',desc:'Unos niños del barrio vinieron a jugar con Cooper.',tool:null,
+   solvedMsg:'Cooper jugó feliz. Felicidad +30. +10 monedas.',solvedFx:{happiness:30,coins:10},solvedItems:['t1'],failFx:{}},
+  {id:'contest',type:'good',e:'🌟',title:'¡Concurso de mascotas!',desc:'¡Cooper fue elegido la mascota más linda del barrio!',tool:null,
+   solvedMsg:'¡Primer puesto! +30 monedas, Felicidad +25.',solvedFx:{happiness:25,coins:30},solvedItems:['po3'],failFx:{}},
+  {id:'newspaper',type:'good',e:'📰',title:'¡Nota en el periódico!',desc:'Un periodista quiere hacer una nota sobre Cooper.',tool:null,
+   solvedMsg:'¡La nota fue viral! Cartel +1. +20 monedas.',solvedFx:{coins:20,poster:1},solvedItems:['p1'],failFx:{}},
+  {id:'neighbor',type:'good',e:'🍗',title:'¡Vecina generosa!',desc:'La vecina trajo comida casera para Cooper.',tool:null,
+   solvedMsg:'¡Qué buena vecina! Comida +35. +8 monedas.',solvedFx:{hunger:35,coins:8},solvedItems:['f3','h1'],failFx:{}},
+  {id:'party',type:'good',e:'🎉',title:'¡Fiesta en el barrio!',desc:'¡El barrio organiza una fiesta y Cooper es el invitado de honor!',tool:'tool_party',
+   solvedMsg:'¡Cooper fue la estrella! Todo +25. +35 monedas.',solvedFx:{hunger:25,hygiene:15,happiness:40,health:10,coins:35},solvedItems:['po5'],
+   failMsg:'Cooper fue pero sin decoración. Felicidad +20. +15 monedas.',failFx:{happiness:20,coins:15}},
 ];
 
 // ===== STATE =====
@@ -475,32 +475,27 @@ function maybeSpawnEvent(){
 function spawnEvent(ev){
   G.activeEvent=ev;G.eventResolved=false;G.lastEventId=ev.id;
   const hasSolution=ev.tool&&hasTool(ev.tool);
-  // good events: auto-resolve immediately with reward
   if(ev.type==='good'){
-    if(hasSolution){
-      showEventOverlay(ev,true,'auto');
-    } else {
-      showEventOverlay(ev,true,'auto_nosolution');
-    }
+    // good events: auto-resolve immediately, show result for 6s then close
+    resolveEvent(true);
     return;
   }
-  // bad events: show with counter
+  // bad events: show countdown, auto-resolve with tool or fail after 6s
   G.eventSecondsLeft=6;
   showEventOverlay(ev,hasSolution,'countdown');
   if(hasSolution){
-    // auto-resolve immediately with tool
-    setTimeout(()=>resolveEvent(true),200);
+    setTimeout(()=>resolveEvent(true),400);
   } else {
     startEventCountdown();
   }
 }
 
-function showEventOverlay(ev,hasSolution,mode){
+function showEventOverlay(ev,hasSolution,mode,prizes){
   const scene=document.getElementById('windowScene');
-  // remove any existing overlay
   const old=document.getElementById('evOverlay');if(old)old.remove();
   const div=document.createElement('div');
   div.id='evOverlay';div.className='event-overlay';
+  const prizeHtml=prizes&&prizes.length?`<div style="margin-top:6px;font-size:10px;color:#f9c74f;background:rgba(249,199,79,.1);border-radius:6px;padding:4px 8px">🎁 Premio: ${prizes.join(', ')}</div>`:'';
   let inner='';
   if(mode==='countdown'){
     inner=`<div class="event-badge">${ev.e}</div>
@@ -508,34 +503,31 @@ function showEventOverlay(ev,hasSolution,mode){
       <p>${ev.desc}</p>
       <div class="event-counter" id="evCount">6</div>
       <div class="event-status">segundos para comprar la herramienta</div>
-      <div class="buy-hint" onclick="switchTab('shop');document.getElementById('tShop').click()">🛒 Ir a la tienda rápido ↗</div>`;
-  } else if(mode==='auto'){
-    inner=`<div class="event-badge">${ev.e}</div>
-      <h3>${ev.title}</h3>
-      <p>${ev.desc}</p>
-      <div class="event-solved">✅ ¡Herramienta usada automáticamente!</div>`;
-  } else if(mode==='auto_nosolution'){
-    inner=`<div class="event-badge">${ev.e}</div>
-      <h3>${ev.title}</h3>
-      <p>${ev.desc}</p>
-      <div class="event-solved" style="color:#f9c74f">🎉 ¡Evento positivo!</div>`;
+      <div class="buy-hint" onclick="switchTab('shop')">🛒 Ir a la tienda rápido ↗</div>`;
   } else if(mode==='solved'){
     inner=`<div class="event-badge">${ev.e}</div>
       <h3>${ev.title}</h3>
-      <div class="event-solved">✅ ¡Resuelto!</div>`;
+      <div class="event-solved">✅ ¡Resuelto!</div>
+      <p style="font-size:10px;color:#aaa;margin-top:5px">${ev.solvedMsg}</p>
+      ${prizeHtml}`;
   } else if(mode==='failed'){
     inner=`<div class="event-badge">${ev.e}</div>
       <h3>${ev.title}</h3>
-      <div class="event-failed">❌ ¡No pudiste evitarlo!</div>`;
+      <div class="event-failed">❌ ¡No pudiste evitarlo!</div>
+      <p style="font-size:10px;color:#aaa;margin-top:5px">${ev.failMsg}</p>`;
+  } else if(mode==='good_auto'){
+    inner=`<div class="event-badge">${ev.e}</div>
+      <h3>${ev.title}</h3>
+      <div class="event-solved" style="color:#f9c74f">🎉 ¡Evento positivo!</div>
+      <p style="font-size:10px;color:#aaa;margin-top:5px">${ev.solvedMsg}</p>
+      ${prizeHtml}`;
   }
   div.innerHTML=inner;
   scene.appendChild(div);
-  // show event image in background
   const old2=document.getElementById('evBgImg');if(old2)old2.remove();
   const img=document.createElement('div');img.id='evBgImg';
-  img.className='window-event-img';
-  img.textContent=ev.e;
-  img.style.cssText='top:20%;left:20%;opacity:.25;font-size:clamp(60px,14vw,120px);pointer-events:none;';
+  img.className='window-event-img';img.textContent=ev.e;
+  img.style.cssText='top:20%;left:20%;opacity:.22;font-size:clamp(60px,14vw,120px);pointer-events:none;';
   scene.appendChild(img);
 }
 
@@ -566,25 +558,53 @@ function resolveEvent(success){
   clearInterval(G.eventTimer);
   const ev=G.activeEvent;
   if(!ev){G.activeEvent=null;return;}
+
+  let prizeItems=[];
   if(success){
     if(ev.tool)consumeTool(ev.tool);
     applyFx(ev.solvedFx);
-    log('✅ '+ev.solvedMsg);
-    showEventOverlay(ev,true,'solved');
+    // add item prizes to inventory
+    if(ev.solvedItems){
+      ev.solvedItems.forEach(sid=>{
+        const shopItem=SHOP.find(s=>s.id===sid);
+        if(shopItem){
+          const entry={...shopItem,uid:Date.now()+Math.random()};
+          if(shopItem.uses!==undefined)entry.uses=shopItem.uses;
+          G.inventory.push(entry);
+          prizeItems.push(shopItem.e+' '+shopItem.n);
+        }
+      });
+    }
+    const prizeStr=prizeItems.length?' + 🎁 '+prizeItems.join(', '):'';
+    log('✅ '+ev.solvedMsg+prizeStr);
+    showEventOverlay(ev,true,'solved',prizeItems);
   } else {
     applyFx(ev.type==='good'?ev.solvedFx:ev.failFx);
-    if(ev.type==='good'){log('🎉 '+ev.solvedMsg);}
+    if(ev.failItems){
+      ev.failItems.forEach(sid=>{
+        const shopItem=SHOP.find(s=>s.id===sid);
+        if(shopItem){
+          const entry={...shopItem,uid:Date.now()+Math.random()};
+          if(shopItem.uses!==undefined)entry.uses=shopItem.uses;
+          G.inventory.push(entry);
+          prizeItems.push(shopItem.e+' '+shopItem.n);
+        }
+      });
+    }
+    const prizeStr=prizeItems.length?' + 🎁 '+prizeItems.join(', '):'';
+    if(ev.type==='good'){log('🎉 '+ev.solvedMsg+prizeStr);}
     else{log('❌ '+ev.failMsg);}
-    showEventOverlay(ev,false,ev.type==='good'?'auto_nosolution':'failed');
+    showEventOverlay(ev,false,ev.type==='good'?'good_auto':'failed',prizeItems);
   }
   updateUI();
+  // always show result for 6 seconds then close
   setTimeout(()=>{
     const old=document.getElementById('evOverlay');if(old)old.remove();
     const old2=document.getElementById('evBgImg');if(old2)old2.remove();
     G.activeEvent=null;
     if(G.posters>=10){triggerWin();return;}
     if(G.health<=0){triggerGameOver('salud crítica');}
-  },2200);
+  },6000);
 }
 
 // ===== PAT =====
