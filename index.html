@@ -185,6 +185,30 @@ body{background:#1a0a2e;color:#fff;min-height:100vh;overflow-x:hidden}
 .sf{border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#888;border-radius:6px;padding:3px 7px;font-size:9px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
 .sf:hover{background:rgba(255,255,255,0.12);color:#ccc}
 .sf.active{background:rgba(249,199,79,.2);color:#f9c74f;border-color:rgba(249,199,79,.5)}
+
+/* ===== MINIGAME ===== */
+#screen-minigame{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:500;align-items:center;justify-content:center;flex-direction:column}
+.mg-wrap{background:#1a0a2e;border:2px solid rgba(255,255,255,.15);border-radius:20px;padding:16px;max-width:480px;width:95%;position:relative}
+.mg-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.mg-title{font-size:16px;font-weight:800;color:#f9c74f}
+.mg-stats{display:flex;gap:10px;font-size:12px}
+.mg-stat{background:rgba(255,255,255,.08);border-radius:8px;padding:4px 10px;font-weight:700}
+.mg-stat.coins{color:#f9c74f}
+.mg-stat.lives{color:#ff6b6b}
+.mg-stat.timer{color:#90e0ef}
+.mg-canvas-wrap{position:relative;width:100%;border-radius:12px;overflow:hidden;border:2px solid rgba(255,255,255,.1)}
+#mgCanvas{display:block;width:100%;background:#87ceeb}
+.mg-info{font-size:11px;color:#aaa;text-align:center;margin-top:8px}
+.mg-btn-row{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.mg-btn{background:linear-gradient(135deg,#9b5de5,#f15bb5);border:none;color:#fff;padding:9px 22px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
+.mg-btn.secondary{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#ccc}
+.mg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.8);display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:10px;z-index:10}
+.mg-overlay h2{font-size:22px;color:#f9c74f;margin-bottom:8px}
+.mg-overlay p{font-size:13px;color:#ccc;margin-bottom:6px}
+.mg-overlay .reward{font-size:15px;color:#70e000;font-weight:700;margin:8px 0}
+.mg-open-btn{width:100%;background:linear-gradient(135deg,#f9c74f,#f4a261);border:none;color:#1a0a2e;padding:9px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;margin-top:8px;transition:all .2s}
+.mg-open-btn:hover{opacity:.88;transform:scale(1.02)}
+.mg-open-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
 </style>
 </head>
 <body>
@@ -285,6 +309,7 @@ body{background:#1a0a2e;color:#fff;min-height:100vh;overflow-x:hidden}
           <button class="care-btn play" id="btnPlay" onclick="useBtn('play')">😊 Jugar<span class="hint" id="hPlay">3 veces/día</span></button>
           <button class="care-btn heal" id="btnHeal" onclick="useBtn('heal')" disabled>💊 Curar<span class="hint" id="hHeal">Comprá medicina</span></button>
         </div>
+        <button class="mg-open-btn" id="btnMinigame" onclick="openMinigame()">🏃 ¡Paseo de Cooper! — Ganá monedas extra</button>
       </div>
     </div>
 
@@ -334,6 +359,34 @@ body{background:#1a0a2e;color:#fff;min-height:100vh;overflow-x:hidden}
       </div>
     </div>
 
+  </div>
+</div>
+
+<!-- MINIGAME -->
+<div id="screen-minigame" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:500;align-items:center;justify-content:center;flex-direction:column">
+  <div class="mg-wrap">
+    <div class="mg-header">
+      <div class="mg-title">🏃 ¡Paseo de Cooper!</div>
+      <div class="mg-stats">
+        <div class="mg-stat timer">⏱️ <span id="mgTime">20</span>s</div>
+        <div class="mg-stat lives">❤️ <span id="mgLives">3</span></div>
+        <div class="mg-stat coins">🪙 <span id="mgCoins">0</span></div>
+      </div>
+    </div>
+    <div class="mg-canvas-wrap">
+      <canvas id="mgCanvas" width="440" height="200"></canvas>
+      <div class="mg-overlay hidden" id="mgOverlay">
+        <h2 id="mgOvTitle"></h2>
+        <p id="mgOvDesc"></p>
+        <div class="reward" id="mgOvReward"></div>
+        <div style="font-size:11px;color:#888;margin-top:4px" id="mgOvPenalty"></div>
+      </div>
+    </div>
+    <div class="mg-info">Presioná <b>ESPACIO</b> o <b>tocá la pantalla</b> para saltar 🐕</div>
+    <div class="mg-btn-row">
+      <button class="mg-btn secondary" onclick="closeMinigame()">✕ Salir</button>
+      <button class="mg-btn" id="mgStartBtn" onclick="mgStart()">▶ Empezar</button>
+    </div>
   </div>
 </div>
 
@@ -950,6 +1003,293 @@ function resetState(){
   document.getElementById('gameLog').innerHTML='';
 }
 document.getElementById('playerName').addEventListener('keydown',e=>{if(e.key==='Enter')startGame();});
+
+// ===== MINIGAME: PASEO DE COOPER =====
+const MG={
+  running:false,started:false,
+  raf:null,
+  barDecayInterval:null,
+  timeInterval:null,
+  canvas:null,ctx:null,
+  W:440,H:200,
+  // Cooper
+  cooper:{x:70,y:0,vy:0,jumping:false,frame:0,frameTimer:0},
+  GROUND:148,
+  GRAVITY:0.7,
+  JUMP_FORCE:-13,
+  // obstacles
+  obstacles:[],
+  obstacleTimer:0,
+  obstacleInterval:80, // frames between obstacles
+  speed:3.5,
+  // coins in air
+  airCoins:[],
+  coinTimer:0,
+  // game state
+  lives:3,
+  coins:0,
+  timeLeft:20,
+  invincible:0,
+  // scroll
+  bgX:0,
+  cloudX:120,
+  score:0,
+  // obstacles catalog
+  OBSTACLES:[
+    {w:28,h:36,emoji:'😾',label:'Gato malo'},
+    {w:24,h:28,emoji:'💧',label:'Charco'},
+    {w:20,h:40,emoji:'🪨',label:'Piedra'},
+    {w:30,h:30,emoji:'🌵',label:'Cactus'},
+    {w:26,h:34,emoji:'🚧',label:'Barrera'},
+  ],
+};
+
+function openMinigame(){
+  if(G.over||G.won)return;
+  // pause day timer
+  clearInterval(G.dayTimer);
+  clearInterval(G.eventTimer);
+  document.getElementById('screen-minigame').style.display='flex';
+  MG.canvas=document.getElementById('mgCanvas');
+  MG.ctx=MG.canvas.getContext('2d');
+  mgReset();
+  mgDraw(); // draw idle frame
+  document.getElementById('mgStartBtn').style.display='';
+  document.getElementById('mgOverlay').classList.add('hidden');
+  // input
+  document.addEventListener('keydown',mgKeyDown);
+  MG.canvas.addEventListener('click',mgTap);
+  MG.canvas.addEventListener('touchstart',mgTap,{passive:true});
+}
+
+function closeMinigame(){
+  mgStop();
+  document.getElementById('screen-minigame').style.display='none';
+  document.removeEventListener('keydown',mgKeyDown);
+  // resume day timer if game not over
+  if(!G.over&&!G.won){
+    startDayTimer();
+    const evDelay=(3+Math.floor(Math.random()*8))*1000;
+    setTimeout(()=>{if(!G.over&&!G.won&&!G.activeEvent)maybeSpawnEvent();},evDelay);
+  }
+}
+
+function mgKeyDown(e){if(e.code==='Space'||e.key===' '){e.preventDefault();mgJump();}}
+function mgTap(e){e.preventDefault&&e.preventDefault();mgJump();}
+
+function mgJump(){
+  if(!MG.running||!MG.started)return;
+  if(!MG.cooper.jumping){
+    MG.cooper.vy=MG.JUMP_FORCE;
+    MG.cooper.jumping=true;
+  }
+}
+
+function mgReset(){
+  MG.cooper={x:70,y:MG.GROUND,vy:0,jumping:false,frame:0,frameTimer:0};
+  MG.obstacles=[];MG.airCoins=[];
+  MG.obstacleTimer=0;MG.coinTimer=0;
+  MG.speed=3.5;MG.lives=3;MG.coins=0;MG.timeLeft=20;
+  MG.invincible=0;MG.bgX=0;MG.cloudX=120;MG.score=0;
+  MG.running=false;MG.started=false;
+  document.getElementById('mgTime').textContent='20';
+  document.getElementById('mgLives').textContent='3';
+  document.getElementById('mgCoins').textContent='0';
+}
+
+function mgStart(){
+  document.getElementById('mgStartBtn').style.display='none';
+  document.getElementById('mgOverlay').classList.add('hidden');
+  mgReset();
+  MG.running=true;MG.started=true;
+  // bar decay during minigame (every 5s drop bars a little)
+  MG.barDecayInterval=setInterval(()=>{
+    if(!MG.running)return;
+    G.hunger=Math.max(0,G.hunger-3);
+    G.hygiene=Math.max(0,G.hygiene-2);
+    G.happiness=Math.max(0,G.happiness-1);
+    updateUI();
+  },5000);
+  // countdown timer
+  MG.timeInterval=setInterval(()=>{
+    if(!MG.running)return;
+    MG.timeLeft--;
+    document.getElementById('mgTime').textContent=MG.timeLeft;
+    MG.speed+=0.12; // accelerate
+    if(MG.timeLeft<=0){mgEnd(true);}
+  },1000);
+  mgLoop();
+}
+
+function mgStop(){
+  MG.running=false;MG.started=false;
+  cancelAnimationFrame(MG.raf);
+  clearInterval(MG.barDecayInterval);
+  clearInterval(MG.timeInterval);
+}
+
+function mgEnd(survived){
+  mgStop();
+  const earned=MG.coins;
+  G.coins+=earned;
+  // bar penalty for playing (Cooper got tired)
+  G.hunger=Math.max(0,G.hunger-8);
+  G.hygiene=Math.max(0,G.hygiene-5);
+  G.happiness=clamp(G.happiness+10); // but happy!
+  updateUI();
+  log(`🏃 Paseo terminado. Cooper ganó 🪙${earned} monedas y esquivó ${MG.score} obstáculos.`);
+  const ov=document.getElementById('mgOverlay');
+  ov.classList.remove('hidden');
+  document.getElementById('mgOvTitle').textContent=survived?'🎉 ¡Buen paseo!':'💀 ¡Cooper se cayó!';
+  document.getElementById('mgOvDesc').textContent=`Esquivaste ${MG.score} obstáculos`;
+  document.getElementById('mgOvReward').textContent=`+🪙 ${earned} monedas ganadas`;
+  document.getElementById('mgOvPenalty').textContent='Cooper está cansado: Comida -8, Higiene -5, Felicidad +10';
+  document.getElementById('mgStartBtn').textContent='🔄 Jugar de nuevo';
+  document.getElementById('mgStartBtn').style.display='';
+  document.getElementById('mgStartBtn').onclick=()=>{
+    document.getElementById('mgStartBtn').onclick=mgStart;
+    mgStart();
+  };
+}
+
+function mgLoop(){
+  if(!MG.running){mgDraw();return;}
+  mgUpdate();
+  mgDraw();
+  MG.raf=requestAnimationFrame(mgLoop);
+}
+
+function mgUpdate(){
+  const c=MG.cooper;
+  // gravity
+  c.vy+=MG.GRAVITY;
+  c.y+=c.vy;
+  if(c.y>=MG.GROUND){c.y=MG.GROUND;c.vy=0;c.jumping=false;}
+  // animate legs
+  c.frameTimer++;
+  if(c.frameTimer>6){c.frame=(c.frame+1)%2;c.frameTimer=0;}
+  // scroll bg
+  MG.bgX=(MG.bgX-MG.speed*0.4+MG.W)%MG.W;
+  MG.cloudX=(MG.cloudX-0.6+MG.W)%MG.W;
+  // spawn obstacles
+  MG.obstacleTimer++;
+  const interval=Math.max(45,MG.obstacleInterval-MG.score*2);
+  if(MG.obstacleTimer>interval){
+    MG.obstacleTimer=0;
+    const ot=MG.OBSTACLES[Math.floor(Math.random()*MG.OBSTACLES.length)];
+    MG.obstacles.push({x:MG.W+10,y:MG.GROUND+16-ot.h,w:ot.w,h:ot.h,emoji:ot.emoji});
+  }
+  // spawn air coins
+  MG.coinTimer++;
+  if(MG.coinTimer>90){
+    MG.coinTimer=0;
+    if(Math.random()<0.6){
+      MG.airCoins.push({x:MG.W+10,y:MG.GROUND-55-Math.random()*40,collected:false});
+    }
+  }
+  // move & check obstacles
+  for(let i=MG.obstacles.length-1;i>=0;i--){
+    const o=MG.obstacles[i];
+    o.x-=MG.speed;
+    if(o.x+o.w<0){MG.obstacles.splice(i,1);MG.score++;continue;}
+    // collision (invincible frames)
+    if(MG.invincible>0){MG.invincible--;continue;}
+    const cx=c.x,cy=c.y-28;
+    if(cx+18>o.x+4&&cx-10<o.x+o.w-4&&cy+28>o.y+6&&cy<o.y+o.h-4){
+      MG.lives--;
+      MG.invincible=60;
+      document.getElementById('mgLives').textContent=MG.lives;
+      if(MG.lives<=0){mgEnd(false);return;}
+    }
+  }
+  // move & check air coins
+  for(let i=MG.airCoins.length-1;i>=0;i--){
+    const ac=MG.airCoins[i];
+    ac.x-=MG.speed;
+    if(ac.x<-20){MG.airCoins.splice(i,1);continue;}
+    if(!ac.collected){
+      const cx=c.x,cy=c.y-14;
+      if(Math.abs(cx-ac.x)<22&&Math.abs(cy-ac.y)<22){
+        ac.collected=true;
+        MG.coins+=3;
+        document.getElementById('mgCoins').textContent=MG.coins;
+      }
+    }
+  }
+  // remove collected coins
+  MG.airCoins=MG.airCoins.filter(a=>!a.collected||a.x>-5);
+}
+
+function mgDraw(){
+  const ctx=MG.ctx,W=MG.W,H=MG.H,c=MG.cooper;
+  // sky
+  const sky=ctx.createLinearGradient(0,0,0,H);
+  sky.addColorStop(0,'#87ceeb');sky.addColorStop(1,'#e8f4ff');
+  ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
+  // clouds
+  ctx.fillStyle='rgba(255,255,255,0.85)';
+  [[MG.cloudX,40,50,22],[MG.cloudX+180,25,40,18],[(MG.cloudX+320)%W,55,35,15]].forEach(([x,y,w,h])=>{
+    ctx.beginPath();ctx.ellipse(x,y,w,h,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(x-18,y+6,w*.6,h*.7,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(x+18,y+5,w*.65,h*.75,0,0,Math.PI*2);ctx.fill();
+  });
+  // ground
+  const grd=ctx.createLinearGradient(0,MG.GROUND+16,0,H);
+  grd.addColorStop(0,'#5cba47');grd.addColorStop(0.15,'#4a9e38');grd.addColorStop(0.15,'#8B6914');grd.addColorStop(1,'#6b4f10');
+  ctx.fillStyle=grd;ctx.fillRect(0,MG.GROUND+16,W,H-(MG.GROUND+16));
+  // ground line
+  ctx.strokeStyle='rgba(0,0,0,.15)';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(0,MG.GROUND+16);ctx.lineTo(W,MG.GROUND+16);ctx.stroke();
+  // bg tiles
+  ctx.fillStyle='rgba(255,255,255,.25)';
+  for(let i=0;i<4;i++){
+    const x=(MG.bgX+i*110)%W;
+    ctx.fillRect(x,MG.GROUND+18,80,3);
+  }
+  // air coins
+  MG.airCoins.forEach(ac=>{
+    if(ac.collected)return;
+    ctx.font='18px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('🪙',ac.x,ac.y);
+    // glow
+    ctx.shadowColor='#f9c74f';ctx.shadowBlur=8;
+    ctx.fillText('🪙',ac.x,ac.y);
+    ctx.shadowBlur=0;
+  });
+  // obstacles
+  MG.obstacles.forEach(o=>{
+    ctx.font=`${Math.max(o.h,24)}px serif`;ctx.textAlign='center';ctx.textBaseline='bottom';
+    ctx.fillText(o.emoji,o.x+o.w/2,o.y+o.h+4);
+  });
+  // Cooper dog
+  const flash=MG.invincible>0&&Math.floor(MG.invincible/6)%2===0;
+  if(!flash){
+    ctx.font='36px serif';ctx.textAlign='center';ctx.textBaseline='bottom';
+    // slight lean when jumping
+    ctx.save();
+    if(c.jumping){ctx.translate(c.x,c.y+4);ctx.rotate(-0.15);ctx.fillText('🐕',0,0);}
+    else{
+      // running animation: alternate between slight rotations
+      ctx.translate(c.x,c.y+4);
+      ctx.rotate(c.frame===0?0.05:-0.05);
+      ctx.fillText('🐕',0,0);
+    }
+    ctx.restore();
+  }
+  // score distance
+  ctx.fillStyle='rgba(0,0,0,.4)';ctx.fillRect(W-90,8,82,22);
+  ctx.fillStyle='#fff';ctx.font='bold 11px sans-serif';ctx.textAlign='left';ctx.textBaseline='top';
+  ctx.fillText(`🏃 ${MG.score} obstáculos`,W-86,12);
+  // if not started yet, draw "tap to start" hint
+  if(!MG.started){
+    ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='#f9c74f';ctx.font='bold 16px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('¡Presioná ESPACIO o tocá para saltar!',W/2,H/2-10);
+    ctx.fillStyle='#ccc';ctx.font='12px sans-serif';
+    ctx.fillText('Las barras de Cooper bajan mientras juega',W/2,H/2+14);
+  }
+}
+
 </script>
 </body>
 </html>
