@@ -162,6 +162,29 @@ body{background:#1a0a2e;color:#fff;min-height:100vh;overflow-x:hidden}
   .center-window{min-height:200px}
   .game-layout{gap:6px}
 }
+/* ===== TUTORIAL ===== */
+#screen-tutorial{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;text-align:center;background:radial-gradient(ellipse at top,#2d1b69 0%,#1a0a2e 70%)}
+.tut-box{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:18px;padding:20px 18px;max-width:520px;width:100%}
+.tut-title{font-size:clamp(18px,4vw,24px);font-weight:800;color:#f9c74f;margin-bottom:4px}
+.tut-sub{font-size:11px;color:#aaa;margin-bottom:14px}
+.tut-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;text-align:left}
+.tut-step{display:flex;align-items:flex-start;gap:11px;background:rgba(255,255,255,0.05);border-radius:11px;padding:9px 12px;border:1px solid rgba(255,255,255,0.08)}
+.tut-step .tsi{font-size:26px;flex-shrink:0;line-height:1}
+.tut-step .tst{font-size:11px;line-height:1.6;color:#ddd}
+.tut-step .tst b{color:#f9c74f;display:block;font-size:12px;margin-bottom:2px}
+.tut-dots{display:flex;gap:5px;justify-content:center;margin-bottom:12px}
+.tut-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.18);transition:all .2s}
+.tut-dot.active{background:#f9c74f;width:18px;border-radius:4px}
+.tut-page{display:none}.tut-page.active{display:block}
+.tut-nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.btn-tut{background:linear-gradient(135deg,#9b5de5,#f15bb5);border:none;color:#fff;padding:10px 26px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-tut:hover{opacity:.88;transform:scale(1.02)}
+.btn-tut-skip{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);color:#888;padding:10px 16px;border-radius:10px;font-size:12px;cursor:pointer}
+/* ===== SHOP FILTERS ===== */
+.shop-filters{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:7px}
+.sf{border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#888;border-radius:6px;padding:3px 7px;font-size:9px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.sf:hover{background:rgba(255,255,255,0.12);color:#ccc}
+.sf.active{background:rgba(249,199,79,.2);color:#f9c74f;border-color:rgba(249,199,79,.5)}
 </style>
 </head>
 <body>
@@ -181,6 +204,51 @@ body{background:#1a0a2e;color:#fff;min-height:100vh;overflow-x:hidden}
     <div class="ranking-box">
       <h3>🏆 Ranking de supervivencia</h3>
       <div id="rankingList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TUTORIAL -->
+<div id="screen-tutorial">
+  <div class="tut-box">
+    <div class="tut-title">📖 Cómo jugar</div>
+    <div class="tut-sub">¡Leé esto antes de empezar a cuidar a Cooper!</div>
+    <div class="tut-dots">
+      <div class="tut-dot active" id="td0"></div>
+      <div class="tut-dot" id="td1"></div>
+      <div class="tut-dot" id="td2"></div>
+    </div>
+
+    <!-- Página 1 -->
+    <div class="tut-page active" id="tp0">
+      <div class="tut-steps">
+        <div class="tut-step"><span class="tsi">🐕</span><div class="tst"><b>Tu misión</b>Encontraste a Cooper, un Shar-Pei abandonado. Cuidalo 100 días mientras buscas a su dueño con carteles.</div></div>
+        <div class="tut-step"><span class="tsi">🪧</span><div class="tst"><b>Objetivo principal</b>Comprá 10 carteles de búsqueda (🪙100 c/u) para que el dueño encuentre a Cooper. ¡Eso es ganar!</div></div>
+        <div class="tut-step"><span class="tsi">💀</span><div class="tst"><b>Podés perder si...</b>La salud de Cooper llega a 0 por hambre, suciedad o tristeza acumulada. ¡Ojo con las barras en rojo!</div></div>
+      </div>
+    </div>
+
+    <!-- Página 2 -->
+    <div class="tut-page" id="tp1">
+      <div class="tut-steps">
+        <div class="tut-step"><span class="tsi">🍖🛁😊💊</span><div class="tst"><b>Barras de Cooper</b>Comida, Higiene, Felicidad y Salud bajan cada día. Usá objetos de la mochila para subirlas. ¡Sin objetos no podés cuidarlo!</div></div>
+        <div class="tut-step"><span class="tsi">🤚</span><div class="tst"><b>Caricias gratis</b>Tocá a Cooper para darle caricias (3 por día). Te da monedas y felicidad. ¡Vale la pena!</div></div>
+        <div class="tut-step"><span class="tsi">⏱️</span><div class="tst"><b>El día dura 40 segundos</b>☀️ Los primeros 30s es de día. 🌙 Los últimos 10s es de noche. Al terminar el día, todo baja automáticamente.</div></div>
+      </div>
+    </div>
+
+    <!-- Página 3 -->
+    <div class="tut-page" id="tp2">
+      <div class="tut-steps">
+        <div class="tut-step"><span class="tsi">⚡</span><div class="tst"><b>Eventos (desde el día 6)</b>Aparecen eventos buenos y malos. Los malos dan 6 segundos para comprar la herramienta que los resuelve. ¡Hay que ser rápido!</div></div>
+        <div class="tut-step"><span class="tsi">🛒</span><div class="tst"><b>La tienda</b>Comprá comida, champú, juguetes, medicina, pociones y herramientas. Las herramientas se usan solas en los eventos. ¡Filtrá por categoría!</div></div>
+        <div class="tut-step"><span class="tsi">🎁</span><div class="tst"><b>Premios</b>Resolver eventos correctamente te da monedas e items extra en la mochila. Los eventos buenos siempre traen recompensas.</div></div>
+      </div>
+    </div>
+
+    <div class="tut-nav">
+      <button class="btn-tut-skip" onclick="skipTutorial()">Saltar</button>
+      <button class="btn-tut" id="tutNextBtn" onclick="tutNext()">Siguiente ▶</button>
     </div>
   </div>
 </div>
@@ -240,7 +308,19 @@ body{background:#1a0a2e;color:#fff;min-height:100vh;overflow-x:hidden}
           <button class="tab active" onclick="switchTab('shop')" id="tShop">🛒 Tienda</button>
           <button class="tab" onclick="switchTab('log')" id="tLog">📋 Historial</button>
         </div>
-        <div id="tabShop"><div class="shop-grid" id="shopGrid"></div></div>
+        <div id="tabShop">
+          <div class="shop-filters">
+            <button class="sf active" onclick="filterShop('all')">🌟 Todo</button>
+            <button class="sf" onclick="filterShop('food')">🍖 Comida</button>
+            <button class="sf" onclick="filterShop('hygiene')">🛁 Higiene</button>
+            <button class="sf" onclick="filterShop('toy')">🎾 Juguetes</button>
+            <button class="sf" onclick="filterShop('medicine')">💊 Medicina</button>
+            <button class="sf" onclick="filterShop('potion')">🧪 Pociones</button>
+            <button class="sf" onclick="filterShop('tool')">🔧 Herram.</button>
+            <button class="sf" onclick="filterShop('poster')">🪧 Carteles</button>
+          </div>
+          <div class="shop-grid" id="shopGrid"></div>
+        </div>
         <div id="tabLog" class="hidden"><div class="log" id="gameLog"></div></div>
         <div class="inv-section">
           <div class="inv-title">🎒 Mochila</div>
@@ -309,7 +389,7 @@ const SHOP=[
   {id:'po4',n:'Poción Salud',e:'🟢',d:'Llena barra de salud',p:22,t:'potion',ef:{health:100}},
   {id:'po5',n:'Poción Total ✨',e:'🌈',d:'Llena TODAS las barras',p:70,t:'potion_all',ef:{hunger:100,hygiene:100,happiness:100,health:100}},
   // CARTELES
-  {id:'p1',n:'Cartel búsqueda',e:'🪧',d:'+1 cartel (necesitás 10)',p:30,t:'poster',ef:{}},
+  {id:'p1',n:'Cartel búsqueda',e:'🪧',d:'+1 cartel (necesitás 10)',p:100,t:'poster',ef:{}},
   // HERRAMIENTAS — 3 usos
   {id:'tl1',n:'Trampa insectos',e:'🪤',d:'3 usos — resuelve bichos',p:15,t:'tool_insect',uses:3},
   {id:'tl2',n:'Detector inund.',e:'💧',d:'3 usos — resuelve agua',p:20,t:'tool_flood',uses:3},
@@ -461,9 +541,15 @@ function endDay(){
 // ===== EVENTS =====
 function maybeSpawnEvent(){
   if(G.activeEvent||G.over||G.won)return;
+  if(G.day<=5)return; // no events first 5 days
   const r=Math.random();
-  if(r>0.7)return; // 70% chance of event each day
-  const pool=EVENTS.filter(e=>e.id!==G.lastEventId);
+  if(r>0.7)return;
+  const dirty=G.hygiene<30;
+  const pool=EVENTS.filter(e=>{
+    if(e.id===G.lastEventId)return false;
+    if(dirty&&(e.id==='kids'||e.id==='party'))return false;
+    return true;
+  });
   const badPool=pool.filter(e=>e.type==='bad');
   const goodPool=pool.filter(e=>e.type==='good');
   let ev;
@@ -645,8 +731,26 @@ function useBtn(type){
 }
 
 // ===== SHOP =====
+let currentFilter='all';
+function filterShop(cat){
+  currentFilter=cat;
+  document.querySelectorAll('.sf').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderShop();
+}
 function renderShop(){
-  document.getElementById('shopGrid').innerHTML=SHOP.map(item=>{
+  const filtered=SHOP.filter(item=>{
+    if(currentFilter==='all')return true;
+    if(currentFilter==='food')return item.t==='food';
+    if(currentFilter==='hygiene')return item.t==='hygiene';
+    if(currentFilter==='toy')return item.t==='toy'||item.t==='clothing';
+    if(currentFilter==='medicine')return item.t==='medicine';
+    if(currentFilter==='potion')return item.t==='potion'||item.t==='potion_all';
+    if(currentFilter==='tool')return item.t&&item.t.startsWith('tool_');
+    if(currentFilter==='poster')return item.t==='poster';
+    return true;
+  });
+  document.getElementById('shopGrid').innerHTML=filtered.length?filtered.map(item=>{
     const isTool=item.uses!==undefined;
     const isPotion=item.t==='potion'||item.t==='potion_all';
     return`<div class="shop-item${isTool?' tool-item':''}${isPotion?' potion-item':''}" onclick="buy('${item.id}')">
@@ -655,7 +759,7 @@ function renderShop(){
       <div class="in">${item.n}</div>
       <div class="id">${item.d}</div>
       <div class="ip">🪙 ${item.p}</div>
-    </div>`}).join('');
+    </div>`}).join(''):`<div style="grid-column:1/-1;text-align:center;color:#555;font-size:12px;padding:20px">No hay items en esta categoría</div>`;
 }
 
 function buy(id){
@@ -787,27 +891,51 @@ function showModal(emoji,title,text,btnText,cb){
   document.getElementById('modal').classList.remove('hidden');
 }
 
+// ===== TUTORIAL =====
+let tutPage=0;
+function tutNext(){
+  tutPage++;
+  if(tutPage>=3){launchGame();return;}
+  for(let i=0;i<3;i++){
+    document.getElementById('tp'+i).className='tut-page'+(i===tutPage?' active':'');
+    document.getElementById('td'+i).className='tut-dot'+(i===tutPage?' active':'');
+  }
+  if(tutPage===2)document.getElementById('tutNextBtn').textContent='¡Jugar! 🚀';
+}
+function skipTutorial(){launchGame();}
+function launchGame(){
+  document.getElementById('screen-tutorial').style.display='none';
+  document.getElementById('screen-game').style.display='block';
+  renderShop();updateUI();
+  log(`🐾 ¡${G.playerName} encontró a Cooper! Cuidalo bien.`);
+  log('🎯 Meta: 10 carteles en 100 días.');
+  startDayTimer();
+  setTimeout(()=>{if(!G.over&&!G.won&&!G.activeEvent)maybeSpawnEvent();},8000);
+}
+
 // ===== NAV =====
 function startGame(){
   const name=(document.getElementById('playerName').value||'').trim();
   if(!name){document.getElementById('playerName').style.borderColor='#ff6b6b';document.getElementById('playerName').focus();return;}
   document.getElementById('playerName').style.borderColor='';
-  G.playerName=name;resetState();
+  G.playerName=name;resetState();tutPage=0;
+  // reset tutorial pages
+  for(let i=0;i<3;i++){
+    document.getElementById('tp'+i).className='tut-page'+(i===0?' active':'');
+    document.getElementById('td'+i).className='tut-dot'+(i===0?' active':'');
+  }
+  document.getElementById('tutNextBtn').textContent='Siguiente ▶';
   document.getElementById('screen-intro').style.display='none';
-  document.getElementById('screen-game').style.display='block';
-  renderShop();updateUI();
-  log(`🐾 ¡${name} encontró a Cooper! Cuidalo bien.`);
-  log('🎯 Meta: 10 carteles en 100 días.');
-  startDayTimer();
-  // first event after 8s
-  setTimeout(()=>{if(!G.over&&!G.won&&!G.activeEvent)maybeSpawnEvent();},8000);
+  document.getElementById('screen-tutorial').style.display='flex';
 }
 function goToMenu(){
   clearInterval(G.dayTimer);clearInterval(G.eventTimer);
   document.getElementById('screen-game').style.display='none';
+  document.getElementById('screen-tutorial').style.display='none';
   document.getElementById('screen-intro').style.display='flex';
   document.getElementById('playerName').value='';
   document.getElementById('modal').classList.add('hidden');
+  currentFilter='all';
   renderRanking();
 }
 function resetState(){
