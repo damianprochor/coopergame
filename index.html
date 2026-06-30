@@ -1187,7 +1187,7 @@ function mgUpdate(){
   if(MG.obstacleTimer>interval){
     MG.obstacleTimer=0;
     const ot=MG.OBSTACLES[Math.floor(Math.random()*MG.OBSTACLES.length)];
-    MG.obstacles.push({x:MG.W+10,y:GND+14-ot.h,w:ot.w,h:ot.h,emoji:ot.emoji});
+    MG.obstacles.push({x:MG.W+10,y:GND+14-ot.h,w:ot.w,h:ot.h,type:ot.type});
   }
   // spawn air coins
   MG.coinTimer++;
@@ -1222,6 +1222,25 @@ function mgUpdate(){
 function mgDraw(){
   const ctx=MG.ctx,W=MG.W,H=MG.H,c=MG.cooper,GND=MG.GROUND;
   if(!ctx)return;
+  // PRE-START SCREEN — drawn first and returns early (no scene underneath, fully crisp)
+  if(!MG.started){
+    ctx.fillStyle='#1e0e38';ctx.fillRect(0,0,W,H);
+    const sky2=ctx.createLinearGradient(0,0,0,H*0.55);
+    sky2.addColorStop(0,'#5bb8f5');sky2.addColorStop(1,'#1e0e38');
+    ctx.fillStyle=sky2;ctx.fillRect(0,0,W,H*0.55);
+    ctx.fillStyle='#f9c74f';ctx.font='bold 24px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('Presiona ESPACIO o SALTAR',W/2,H/2-30);
+    ctx.fillStyle='#cde8ff';ctx.font='15px sans-serif';
+    ctx.fillText('Las barras de Cooper bajan mientras corre',W/2,H/2);
+    ctx.save();ctx.translate(W/2-40,H/2+70);
+    ctx.fillStyle='#c8860a';ctx.beginPath();ctx.roundRect(-18,-20,36,22,6);ctx.fill();
+    ctx.fillStyle='#d4960f';ctx.beginPath();ctx.roundRect(12,-30,22,18,5);ctx.fill();
+    ctx.fillStyle='#9a6208';ctx.beginPath();ctx.ellipse(16,-30,5,7,-.3,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#111';ctx.beginPath();ctx.arc(28,-24,3,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#e8b840';ctx.beginPath();ctx.roundRect(28,-20,9,8,3);ctx.fill();
+    ctx.restore();
+    return;
+  }
   // SKY
   const sky=ctx.createLinearGradient(0,0,0,H);
   sky.addColorStop(0,'#5bb8f5');sky.addColorStop(1,'#c8e8ff');
@@ -1343,22 +1362,6 @@ function mgDraw(){
   ctx.fillStyle='rgba(0,0,0,.5)';ctx.beginPath();ctx.roundRect(W-130,6,122,26,6);ctx.fill();
   ctx.fillStyle='#f9c74f';ctx.font='bold 12px sans-serif';ctx.textAlign='left';ctx.textBaseline='top';
   ctx.fillText('Esquivados: '+MG.score,W-125,12);
-  // PRE-START SCREEN
-  if(!MG.started){
-    ctx.fillStyle='rgba(10,0,30,.82)';ctx.fillRect(0,0,W,H);
-    ctx.fillStyle='#f9c74f';ctx.font='bold 22px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText('Presiona ESPACIO o SALTAR',W/2,H/2-22);
-    ctx.fillStyle='#90e0ef';ctx.font='14px sans-serif';
-    ctx.fillText('Las barras de Cooper bajan mientras corre',W/2,H/2+10);
-    // Cooper preview facing right
-    ctx.save();ctx.translate(W/2-40,H/2+55);
-    ctx.fillStyle='#c8860a';ctx.beginPath();ctx.roundRect(-18,-20,36,22,6);ctx.fill();
-    ctx.fillStyle='#d4960f';ctx.beginPath();ctx.roundRect(12,-30,22,18,5);ctx.fill();
-    ctx.fillStyle='#9a6208';ctx.beginPath();ctx.ellipse(16,-30,5,7,-.3,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#111';ctx.beginPath();ctx.arc(28,-24,3,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#e8b840';ctx.beginPath();ctx.roundRect(28,-20,9,8,3);ctx.fill();
-    ctx.restore();
-  }
 }
 
 
