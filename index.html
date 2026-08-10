@@ -841,7 +841,8 @@ function endDay(){
   G.happiness=clamp(G.happiness-7);
   // health consequences
   let hd=0;
-  if(G.hunger<20){hd-=8;log('⚠️ Cooper tiene hambre crítica. Salud -8');}
+  if(G.hunger<10){hd-=15;log('🚨 ¡Cooper está muriendo de HAMBRE! ¡Alimentalo YA! Salud -15');}
+  else if(G.hunger<20){hd-=8;log('⚠️ Cooper tiene hambre crítica. Salud -8');}
   if(G.hygiene<20){hd-=5;log('⚠️ Cooper muy sucio. Salud -5');}
   if(G.happiness<20){hd-=4;log('⚠️ Cooper muy triste. Salud -4');}
   if(hd)G.health=clamp(G.health+hd);
@@ -849,7 +850,7 @@ function endDay(){
   G.coins+=coins;
   log(`📅 Día ${G.day}${wasSpeed?' ⚡ (¡día veloz!)':''} — +${coins} monedas.`);
   if(G.health<=0){triggerGameOver('salud crítica');return;}
-  if(G.hunger<=0&&G.health<30){triggerGameOver('inanición');return;}
+  if(G.hunger<=0){triggerGameOver('inanición — Cooper murió de hambre');return;}
   if(G.day>100&&G.posters<10){
     addRankEntry(G.playerName,G.day,false);
     showModal('😢','100 días pasaron...','No conseguiste 10 carteles a tiempo. ¡Inténtalo de nuevo!','Intentar de nuevo',goToMenu);
@@ -857,7 +858,24 @@ function endDay(){
   }
   updateUI();
   const evDelay=(5+Math.floor(Math.random()*15))*1000;
-  setTimeout(()=>{if(!G.over&&!G.won&&!G.activeEvent)maybeSpawnEvent();},evDelay);
+  // Días 6,8,10,12,14,16,18,20 — forzar evento del banco si está en el banco
+  const isForcedBankDay=G.day>=6&&G.day<=20&&G.day%2===0;
+  if(isForcedBankDay&&G.location==='bank'&&!G.activeEvent){
+    setTimeout(()=>{
+      if(!G.over&&!G.won&&!G.activeEvent){
+        const r=Math.random();
+        if(r<0.50){
+          const barnEv=EVENTS.find(e=>e.id==='barney');
+          if(barnEv)spawnEvent(barnEv);
+        } else {
+          const robEv=EVENTS.find(e=>e.id==='bank_robbery');
+          if(robEv)spawnEvent(robEv);
+        }
+      }
+    },evDelay);
+  } else {
+    setTimeout(()=>{if(!G.over&&!G.won&&!G.activeEvent)maybeSpawnEvent();},evDelay);
+  }
   // use speed potion duration for next day if active
   G.daySecondsLeft=G.speedPotionActive?5:40;
   startDayTimer();
@@ -895,16 +913,16 @@ function changeLocation(loc){
       setTimeout(()=>{
         if(!G.over&&!G.won&&!G.activeEvent){
           const r=Math.random();
-          if(r<0.5){
-            // 50% robo — pero el maletín lo detiene
-            const robEv=EVENTS.find(e=>e.id==='bank_robbery');
-            if(robEv)spawnEvent(robEv);
-          } else if(r<0.75){
-            // 25% Barney pide café
+          if(r<0.40){
+            // 40% Barney aparece
             const barnEv=EVENTS.find(e=>e.id==='barney');
             if(barnEv)spawnEvent(barnEv);
+          } else if(r<0.80){
+            // 40% robo al banco
+            const robEv=EVENTS.find(e=>e.id==='bank_robbery');
+            if(robEv)spawnEvent(robEv);
           }
-          // 25% sin evento — día tranquilo en el banco
+          // 20% día tranquilo en el banco
         }
       },2500);
     }
@@ -1041,6 +1059,8 @@ function updateLocationUI(){
 function maybeSpawnEvent(){
   if(G.activeEvent||G.over||G.won)return;
   if(G.day<=5)return;
+  // En el banco SOLO hay eventos propios (Barney y robo), manejados al cambiar de ubicación
+  if(G.location==='bank')return;
   const r=Math.random();
   if(r>0.72)return;
   const dirty=G.hygiene<30;
@@ -1053,6 +1073,8 @@ function maybeSpawnEvent(){
     if(e.id==='mud'&&!inYard)return false;
     // En la casa de Barney NO pueden ocurrir eventos malos ni de banco
     if(inBarneyHouse&&(e.type==='bad'||e.id==='bank_robbery'||e.id==='barney'))return false;
+    // Bank events (barney + robbery) are handled exclusively when changing to bank location
+    if(e.id==='bank_robbery'||e.id==='barney')return false;
     return true;
   });
   const badPool=inBarneyHouse?[]:pool.filter(e=>e.type==='bad');
